@@ -1,12 +1,7 @@
+import BaseSprite from './BaseSprite';
 
-export default class ConveyerBelt {
+export default class ConveyerBelt extends BaseSprite {
     constructor(width, height) {
-        this.belt = PIXI.Sprite.fromImage('assets/bunny.png');
-        this.belt.width = width;
-        this.belt.height = height;
-    }
-
-    get sprite() {
-        return this.belt;
+        super('assets/bunny.png', width, height);
     }
 }

@@ -11,14 +11,14 @@ export default  class Demo  {
         var app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x1099bb});
         document.body.appendChild(app.view);
 
-        const belt = new ConveyerBelt(app.screen.width / 20, app.screen.height).sprite;
+        const belt = new ConveyerBelt(app.screen.width / 20, app.screen.height);
 
-        belt.anchor.set(0.5);
+        belt.sprite.anchor.set(0.5);
 
-        belt.x = app.screen.width / 2;
-        belt.y = app.screen.height / 2;
+        belt.sprite.x = app.screen.width / 2;
+        belt.sprite.y = app.screen.height / 2;
 
-        app.stage.addChild(belt);
+        app.stage.addChild(belt.sprite);
 
         // Listen for animate update
         app.ticker.add(delta => {
