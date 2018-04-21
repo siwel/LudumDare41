@@ -1,4 +1,4 @@
-import Demo from './states/Demo';
+import Demo from './Demo';
 
 export class Game {
 	constructor() {
