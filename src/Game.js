@@ -24,6 +24,7 @@ export default class Game {
         app.stage.addChild(this.ingratiateCardData.getPlate());
         app.stage.addChild(this.ingratiateCardData2.getPlate());
         app.stage.addChild(this.ingratiateCardData3.getPlate());
+        app.stage.addChild(belt.sprite);
 
 
         belt.start();
