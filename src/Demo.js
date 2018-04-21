@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import ConveyerBelt from './components/ConveyerBelt';
 
 export default  class Demo  {
     constructor() {
@@ -10,24 +11,21 @@ export default  class Demo  {
         var app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x1099bb});
         document.body.appendChild(app.view);
 
-// create a new Sprite from an image path
-        var bunny = PIXI.Sprite.fromImage('assets/bunny.png');
+        const belt = new ConveyerBelt(app.screen.width / 20, app.screen.height).sprite;
 
-        // center the sprite's anchor point
-        bunny.anchor.set(0.5);
+        belt.anchor.set(0.5);
 
-        // move the sprite to the center of the screen
-        bunny.x = app.screen.width / 2;
-        bunny.y = app.screen.height / 2;
+        belt.x = app.screen.width / 2;
+        belt.y = app.screen.height / 2;
 
-        app.stage.addChild(bunny);
+        app.stage.addChild(belt);
 
         // Listen for animate update
-        app.ticker.add(function(delta) {
+        app.ticker.add(delta => {
             // just for fun, let's rotate mr rabbit a little
             // delta is 1 if running at 100% performance
             // creates frame-independent transformation
-            bunny.rotation += 0.1 * delta;
+            // belt.rotation += 0.1 * delta;
         });
 	}
 
