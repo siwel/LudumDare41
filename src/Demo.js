@@ -7,7 +7,7 @@ export default  class Demo  {
 
 
 	init () {
-        var app = new PIXI.Application(800, 600, {backgroundColor : 0x1099bb});
+        var app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x1099bb});
         document.body.appendChild(app.view);
 
 // create a new Sprite from an image path
