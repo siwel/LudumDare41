@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const CopyWebpackPlugin  = require('copy-webpack-plugin');
 const __DEV__ = process.env.NODE_ENV !== 'production';
 
 module.exports = {
@@ -35,8 +36,11 @@ module.exports = {
 		new webpack.DefinePlugin({ __DEV__: JSON.stringify(__DEV__) }),
 		new HtmlWebpackPlugin({
 			template: './src/index.html'
-		})
-	],
+		}),
+        new CopyWebpackPlugin([
+            { from: 'src/assets', to: 'assets' }
+        ])
+    ],
 	devServer: {
 		contentBase: path.join(__dirname, 'build'),
 		compress: true,
