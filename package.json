@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/siwel/LudumDare40#readme",
   "dependencies": {
-    "phaser-ce": "^2.9.2"
+    "pixi.js": "^4.7.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.33",
