@@ -9,4 +9,8 @@ export default class BaseSprite {
     get sprite() {
         return this.pixiSprite;
     }
+    
+    get height() {
+        return this.pixiSprite.height;
+    }
 }

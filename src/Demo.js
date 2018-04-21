@@ -1,11 +1,11 @@
 import * as PIXI from 'pixi.js';
 import ConveyerBelt from './components/ConveyerBelt';
+import Ingredient from './components/Ingredient';
 
-export default  class Demo  {
-    constructor() {
-
-	}
-
+export default class Demo {
+    constructor () {
+        this.activeIngredients = [];
+    }
 
 	init () {
         var app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x1099bb});
@@ -19,6 +19,20 @@ export default  class Demo  {
         belt.sprite.y = app.screen.height / 2;
 
         app.stage.addChild(belt.sprite);
+        
+        belt.start();
+
+        setInterval(() => {
+            const newIngredient = this.getNextIngredient(app.screen.width / 25, app.screen.height / 25);
+
+            newIngredient.sprite.anchor.set(0.5);
+            newIngredient.sprite.x = app.screen.width / 2;
+            newIngredient.sprite.y = 0;
+
+            belt.addIngredient(newIngredient.sprite);
+
+            app.stage.addChild(newIngredient.sprite);
+        }, 1500);
 
         // Listen for animate update
         app.ticker.add(delta => {
@@ -27,6 +41,15 @@ export default  class Demo  {
             // creates frame-independent transformation
             // belt.rotation += 0.1 * delta;
         });
-	}
+    }
+    
+    getNextIngredient(width, height) {
+        const ingredientType = Demo.ingredients[Math.floor(Math.random() * Demo.ingredients.length)];
+        return new Ingredient(ingredientType, width, height);
+    }
+
+    static get ingredients() { 
+        return ['onion', 'tomato', 'carrot', 'celery']; 
+    }
 
 }
