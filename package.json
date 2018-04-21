@@ -1,5 +1,5 @@
 {
-  "name": "ludumdare40",
+  "name": "ludumdare41",
   "version": "1.0.0",
   "description": "",
   "main": "./build/app.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/siwel/LudumDare40.git"
+    "url": "git+https://github.com/siwel/LudumDare41.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/siwel/LudumDare40/issues"
+    "url": "https://github.com/siwel/LudumDare41/issues"
   },
-  "homepage": "https://github.com/siwel/LudumDare40#readme",
+  "homepage": "https://github.com/siwel/LudumDare41#readme",
   "dependencies": {
     "pixi.js": "^4.7.3"
   },
