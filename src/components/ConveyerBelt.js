@@ -5,6 +5,11 @@ export default class ConveyerBelt extends BaseSprite {
         super('assets/bunny.png', width, height);
 
         this.ingredients = [];
+        this.hitBuffer = 0;
+    }
+
+    setIngredientHeight(height) {
+        this.hitBuffer = height / 2;
     }
 
     start() {
@@ -21,5 +26,17 @@ export default class ConveyerBelt extends BaseSprite {
 
     addIngredient(sprite) {
         this.ingredients.push(sprite);
+    }
+
+
+    registerHit(y) {
+        for (let i = 0; i < this.ingredients.length; i++) {
+            const yDiff = this.ingredients[i].y - y;
+            if (Math.abs(yDiff) < this.hitBuffer) {
+                this.ingredients[i].destroy();
+                this.ingredients.splice(i, 1);
+                break;
+            }
+        }
     }
 }

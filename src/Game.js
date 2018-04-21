@@ -12,6 +12,7 @@ export default class Game {
         document.body.appendChild(app.view);
 
         const belt = new ConveyerBelt(app.screen.width / 20, app.screen.height);
+        belt.sprite.interactive = true;
 
         belt.sprite.anchor.set(0.5);
 
@@ -19,8 +20,15 @@ export default class Game {
         belt.sprite.y = app.screen.height / 2;
 
         app.stage.addChild(belt.sprite);
+
+        belt.setIngredientHeight(app.screen.height / 25);
         
         belt.start();
+
+        // Temp until we have working gun
+        belt.sprite.on('click', event => {
+            belt.registerHit(event.data.global.y);
+        })
 
         setInterval(() => {
             const newIngredient = this.getNextIngredient(app.screen.width / 25, app.screen.height / 25);
