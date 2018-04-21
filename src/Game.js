@@ -65,7 +65,7 @@ export default class Game {
             y : window.innerHeight*0.25
         };
 
-        this.ingratiateCardData = new IngredientCardData(['onion', 'chess'],  this.location );
+        this.ingratiateCardData = new IngredientCardData(['onion', 'chess','carrot'],  this.location );
         this.ingratiateCardData.init();
 
         this.location2 = {
@@ -73,7 +73,7 @@ export default class Game {
             y : window.innerHeight*0.5
         };
 
-        this.ingratiateCardData2 = new IngredientCardData(['onion', 'chess'],  this.location2 );
+        this.ingratiateCardData2 = new IngredientCardData(['onion', 'chess', 'bun', 'beef'],  this.location2 );
         this.ingratiateCardData2.init();
 
         this.location3 = {

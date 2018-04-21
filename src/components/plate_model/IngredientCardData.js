@@ -6,7 +6,7 @@ export default class IngredientCardData {
     constructor(ingredients, location) {
 
         this.location = location;
-        this.plateView = new IngredientCardView(0,this.location);
+        this.plateView = new IngredientCardView(ingredients,this.location);
         this.listIngredients = ingredients;
         this.selectedIngredients = [];
     }

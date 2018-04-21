@@ -2,9 +2,10 @@ import * as PIXI from "pixi.js";
 
 export default class IngredientCardView {
 
-    constructor(size, location) {
+    constructor(ingredients, location) {
         this.container = new PIXI.Container();
         this.location = location;
+        this.ingredients = ingredients
     }
 
     init(location) {
@@ -12,7 +13,7 @@ export default class IngredientCardView {
         this.plate = PIXI.Texture.fromImage('assets/bunny.png');
 
         // Create a 5x5 grid of bunnies
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < this.ingredients.length; i++) {
             var bunny = new PIXI.Sprite(this.plate);
             bunny.anchor.set(0.5);
             bunny.x = (i ) * 25 - 100;
