@@ -1,3 +1,4 @@
-import {Game} from './Game';
+import Game from './Game';
 
-const game = new Game(document.getElementById('game'));
+const game = new Game();
+game.init();
