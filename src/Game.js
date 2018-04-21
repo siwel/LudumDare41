@@ -1,10 +1,13 @@
 import * as PIXI from 'pixi.js';
 import ConveyerBelt from './components/ConveyerBelt';
 import Ingredient from './components/Ingredient';
+import IngredientCardData from "./components/plate_model/IngredientCardData";
 
 export default class Game {
     constructor () {
         this.activeIngredients = [];
+
+        this.generateIngratiateCardData();
     }
 
 	init () {
@@ -19,10 +22,13 @@ export default class Game {
         belt.sprite.x = app.screen.width / 2;
         belt.sprite.y = app.screen.height / 2;
 
+        app.stage.addChild(this.ingratiateCardData.getPlate());
+        app.stage.addChild(this.ingratiateCardData2.getPlate());
+        app.stage.addChild(this.ingratiateCardData3.getPlate());
         app.stage.addChild(belt.sprite);
 
         belt.setIngredientHeight(app.screen.height / 25);
-        
+
         belt.start();
 
         // Temp until we have working gun
@@ -58,6 +64,34 @@ export default class Game {
 
     static get ingredients() { 
         return ['onion', 'tomato', 'carrot', 'celery']; 
+    }
+
+    generateIngratiateCardData () {
+
+        this.location = {
+            x : window.innerWidth-100,
+            y : window.innerHeight*0.25
+        };
+
+        this.ingratiateCardData = new IngredientCardData(['onion', 'chess','carrot'],  this.location );
+        this.ingratiateCardData.init();
+
+        this.location2 = {
+            x : window.innerWidth-100,
+            y : window.innerHeight*0.5
+        };
+
+        this.ingratiateCardData2 = new IngredientCardData(['onion', 'chess', 'bun', 'beef'],  this.location2 );
+        this.ingratiateCardData2.init();
+
+        this.location3 = {
+            x : window.innerWidth-100,
+            y : window.innerHeight*0.75
+        };
+
+        this.ingratiateCardData3 = new IngredientCardData(['onion', 'chess'],  this.location3 );
+        this.ingratiateCardData3.init();
+
     }
 
 }
