@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 
-export default class IngratiateCardView {
+export default class IngredientCardView {
 
     constructor(size, location) {
         this.container = new PIXI.Container();

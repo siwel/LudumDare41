@@ -1,12 +1,12 @@
 import * as PIXI from "pixi.js";
-import IngratiateCardView from "./IngratiateCardView";
+import IngredientCardView from "./IngredientCardView";
 
-export default class IngratiateCardData {
+export default class IngredientCardData {
 
     constructor(ingredients, location) {
 
         this.location = location;
-        this.plateView = new IngratiateCardView(0,this.location);
+        this.plateView = new IngredientCardView(0,this.location);
         this.listIngredients = ingredients;
         this.selectedIngredients = [];
     }

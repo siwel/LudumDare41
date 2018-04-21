@@ -1,7 +1,10 @@
 import * as PIXI from 'pixi.js';
+import IngredientCardData from './components/plate_model/IngredientCardData';
 
 export default  class Demo  {
     constructor() {
+
+        this.generateIngratiateCardData();
 
 	}
 
@@ -22,13 +25,48 @@ export default  class Demo  {
 
         app.stage.addChild(bunny);
 
+        app.stage.addChild(this.ingratiateCardData.getPlate());
+        app.stage.addChild(this.ingratiateCardData2.getPlate());
+        app.stage.addChild(this.ingratiateCardData3.getPlate());
+
+
         // Listen for animate update
         app.ticker.add(function(delta) {
             // just for fun, let's rotate mr rabbit a little
             // delta is 1 if running at 100% performance
             // creates frame-independent transformation
             bunny.rotation += 0.1 * delta;
+            //this.plate.getCurrentWantedIngredient()
         });
 	}
+
+	generateIngratiateCardData () {
+
+        this.location = {
+            x : window.innerWidth-100,
+            y : window.innerHeight*0.25
+        };
+
+        this.ingratiateCardData = new IngredientCardData(['onion', 'chess'],  this.location );
+        this.ingratiateCardData.init();
+
+        this.location2 = {
+            x : window.innerWidth-100,
+            y : window.innerHeight*0.5
+        };
+
+        this.ingratiateCardData2 = new IngredientCardData(['onion', 'chess'],  this.location2 );
+        this.ingratiateCardData2.init();
+
+        this.location3 = {
+            x : window.innerWidth-100,
+            y : window.innerHeight*0.75
+        };
+
+        this.ingratiateCardData3 = new IngredientCardData(['onion', 'chess'],  this.location3 );
+        this.ingratiateCardData3.init();
+
+    }
+
 
 }
