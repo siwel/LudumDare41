@@ -52,6 +52,18 @@ export default class Game {
         // Temp until we have working gun
         this.belt.sprite.on('click', event => {
             this.belt.registerHit(event.data.global.y);
+
+            const ingredient = this.belt.lastHit;
+
+            if(ingredient)
+            {
+                //TODO: need to work out what table number we have hit, guess the projectile will know?
+                const TABLE_NUMBER = 0;
+                const table = this.restaurantManager.getTableByNumber(TABLE_NUMBER);
+                table.addIngredient(ingredient);
+                this.belt.setLastTypeHit(null);
+            }
+
         });
 
         this.spawnIngredient();

@@ -33,6 +33,7 @@ export default class ConveyerBelt extends BaseSprite {
         for (let i = 0; i < this.ingredients.length; i++) {
             const yDiff = this.ingredients[i].y - y;
             if (Math.abs(yDiff) < this.hitBuffer) {
+                this.setLastTypeHit(this.ingredients[i].type);
                 this.ingredients[i].destroy();
                 this.ingredients.splice(i, 1);
                 break;
@@ -41,10 +42,10 @@ export default class ConveyerBelt extends BaseSprite {
     }
 
     setLastTypeHit(type) {
-        this.lastHit = type;
+        this._lastHit = type;
     }
 
     get lastHit() {
-        return this.lastHit;
+        return this._lastHit;
     }
 }

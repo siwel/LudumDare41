@@ -47,7 +47,11 @@ export default class RestaurantManager {
         }
     }
 
-    getCustomerByTable(tableNumber) {
+    /**
+     * @param tableNumber
+     * @returns {Table}
+     */
+    getTableByNumber(tableNumber) {
         return this.tables.get(tableNumber);
     }
 

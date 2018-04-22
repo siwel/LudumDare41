@@ -40,6 +40,11 @@ export default class Table {
          */
         this.recipe = Recipes.recipes[this.food];
 
+        /**
+         * The ingredient we have been given
+         * @type {Array}
+         */
+        this.ingredients = [];
 
         console.log(this.recipe);
 
@@ -62,8 +67,23 @@ export default class Table {
     }
 
 
-    addIngratiate(){
+    addIngredient(ingredient){
 
+        if(this.ingredients.includes(ingredient)){
+            console.log(`WRONG INGREDIENT: WE ALREADY HAVE ${ingredient}`);
+            return false;
+        }
+
+        if(this.recipe.includes(ingredient) !== true)
+        {
+            console.log(`WRONG INGREDIENT ${ingredient}: EXPECTED ${this.recipe}`);
+            //WE HAVE ADDED THE WRONG INGREDIENT
+            //TODO: INFORM PLATE, CARD AND CUSTOMER
+            return false;
+        }
+
+        this.ingredients.push(ingredient);
+        this.ingratiateCard.addIngredient(ingredient);
     }
 
 }
