@@ -115,7 +115,7 @@ export default class Game {
 
         this.app.stage.addChild(this.belt.sprite);
 
-        this.belt.start();
+        this.belt.animate();
 
         // Temp until we have working gun
         this.belt.sprite.on('click', event => {

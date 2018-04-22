@@ -8,25 +8,39 @@ export default class ConveyerBelt extends BaseSprite {
 
         this.ingredients = [];
         this.hitBuffer = 0;
+
+        this.position = 0;
+
+    }
+
+    animate(){
+        const BELT_SPEED = 1.5;
+        requestAnimationFrame(() => {
+            this.animate();
+
+
+            this.position+= BELT_SPEED;
+            this.sprite.tilePosition.set(0, this.position);
+
+            this.ingredients.forEach((ingredient, index, arr) => {
+                ingredient.y+= BELT_SPEED;
+
+                // ingredient.scale.x++;
+                if (ingredient.y >= this.height + ConveyerBelt.BUFFER) {
+                    ingredient.destroy();
+                    arr.shift();
+                }
+            });
+
+        })
     }
 
     setIngredientHeight(height) {
         this.hitBuffer = height / 2;
     }
 
-    start() {
-        setInterval(() => {
-            this.ingredients.forEach((ingredient, index, arr) => {
-                ingredient.y++;
-                if (ingredient.y >= this.height) {
-                    ingredient.destroy();
-                    arr.shift();
-                }
-            });
-        }, 10);
-    }
-
     addIngredient(ingredient) {
+        ingredient.y = -ConveyerBelt.BUFFER;
         this.ingredients.push(ingredient);
     }
 
@@ -53,5 +67,14 @@ export default class ConveyerBelt extends BaseSprite {
 
     get lastHit() {
         return this._lastHit;
+    }
+
+    /**
+     * The space above and below the belt to spawn/despawn
+     * @returns {number}
+     * @constructor
+     */
+    static get BUFFER(){
+        return 50;
     }
 }
