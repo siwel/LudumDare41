@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import ConveyerBelt from './components/ConveyerBelt';
 import Ingredient from './components/Ingredient';
-import Gun from './components/Gun';
+import Gun from './components/weapon/Gun';
 import IngredientCardData from "./components/ingredientcard/IngredientCardData";
 import RestaurantManager from "./components/restaurant/RestaurantManager";
 import Recipes from "./Recipes";
@@ -92,13 +92,17 @@ export default class Game {
     initGun() {
         this.gun = new Gun(this.app.screen.height / 2);
         this.app.stage.addChild(this.gun.sprite);
+        this.gun.bullettMagazine.forEach((bullet)=>{
+            this.app.stage.addChild(bullet.sprite);
+        });
+
     }
 
     initController() {
 
         const arrowUp = 38;
         const arrowDown = 40;
-        const backspace = 8;
+        const backspace = 32;
 
         var keyMoveGunUp = new Keyboard(arrowUp);
         var keyMoveGunDown = new Keyboard(arrowDown);
@@ -106,13 +110,16 @@ export default class Game {
 
         keyMoveGunUp.key.press = (delta) => this.gun.moveYAxis(this.gun.sprite.y - (3 * delta || 1));
         keyMoveGunDown.key.press = (delta) => this.gun.moveYAxis(this.gun.sprite.y + (3 * delta || 1));
+        keyFireGun.key.press = (delta) => this.gun.fire(this.gun.sprite.y + (3 * delta || 1));
 
         this.app.ticker.add(delta => {
             if(keyMoveGunUp.key.isDown){
                 keyMoveGunUp.key.press(delta);
+
             }
             if(keyMoveGunDown.key.isDown){
                 keyMoveGunDown.key.press(delta);
+
             }
         });
 

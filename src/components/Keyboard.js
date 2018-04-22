@@ -11,6 +11,7 @@ export default class Keyboard {
 
         //The `downHandler`
         key.downHandler = event => {
+            console.log("event.keyCode" ,event.keyCode)
             if (event.keyCode === key.code) {
                 if (key.isUp && key.press) key.press();
                 key.isDown = true;

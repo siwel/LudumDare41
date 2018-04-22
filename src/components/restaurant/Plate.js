@@ -8,11 +8,12 @@ export default class Plate extends BaseSprite{
 
         this.sprite.x = location.x-100;
         this.sprite.y = location.y +100;
+
     }
 
     //TODO
-    updateplate() {
-
+    updatePlate() {
+        this.sprite.rotation+= Math.PI/2;
     }
 
 

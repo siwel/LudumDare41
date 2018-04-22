@@ -1,4 +1,5 @@
-import BaseSprite from './BaseSprite';
+import BaseSprite from '../BaseSprite';
+import Bullet from './Bullet';
 
 export default class Gun extends BaseSprite{
 
@@ -7,6 +8,12 @@ export default class Gun extends BaseSprite{
 
         this.sprite.x = 10;
         this.sprite.y = positionY;
+
+        this.MAX_BULLET = 10;
+
+        this.firedBullet = 0;
+
+        this.bullettMagazine = [];
 
         this.sprite.rotation = Math.PI * 2 * 0.25;
 
@@ -23,6 +30,28 @@ export default class Gun extends BaseSprite{
             .on('pointerup', this.onDragEnd)
             .on('pointerupoutside', this.onDragEnd)
             .on('pointermove', this.onDragMove);
+
+        this.addBullet();
+    }
+
+    addBullet() {
+
+      for(var index = 0; index < this.MAX_BULLET ; index++) {
+          this.bullettMagazine.push(new Bullet())
+      }
+    }
+
+    fire (yAxis) {
+
+      if(this.firedBullet < this.MAX_BULLET) {
+
+          this.bullettMagazine[this.firedBullet].moveBullet(yAxis ,this.firedBullet);
+
+          this.firedBullet+=1;
+
+      }else {
+          this.firedBullet = 0;
+      }
     }
 
     onDragStart(event) {

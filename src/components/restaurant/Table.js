@@ -91,6 +91,8 @@ export default class Table {
 
         this.ingredients.push(ingredient);
         this.ingredientCard.addIngredient(ingredient);
+        this.plate.updatePlate();
+        console.log(`CORRECT INGREDIENT ${ingredient}: OF ${this.recipe}`);
     }
 
 }
