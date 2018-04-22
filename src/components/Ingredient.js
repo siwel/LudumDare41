@@ -30,10 +30,10 @@ export default class Ingredient extends BaseSprite {
 
     static get images() {
         return {
+            'banana': 'assets/ingredients/banana.png',
+            'fish': 'assets/ingredients/fish.png',
+            'milk': 'assets/ingredients/milk.png',
             'onion': 'assets/bunny.png',
-            'tomato': 'assets/bunny.png',
-            'carrot': 'assets/bunny.png',
-            'celery': 'assets/bunny.png',
         }
     }
 }

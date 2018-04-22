@@ -4,7 +4,7 @@ export default class Recipes {
      * @returns {string[]}
      */
     static get ingredients() {
-        return ['onion', 'tomato', 'carrot', 'celery', 'pasta', 'Fish'];
+        return ['fish', 'milk', 'banana', 'celery'];
     }
 
     static get food () {
@@ -18,7 +18,7 @@ export default class Recipes {
 
         return {
             "Soup": [Recipes.ingredients[0], Recipes.ingredients[1]],
-            "Fish": [Recipes.ingredients[0], Recipes.ingredients[5]],
+            "Fish": [Recipes.ingredients[0], Recipes.ingredients[2]],
             "Spaghetti Bolognese": [Recipes.ingredients[0], Recipes.ingredients[1], Recipes.ingredients[2], Recipes.ingredients[3]]
         }
     }
