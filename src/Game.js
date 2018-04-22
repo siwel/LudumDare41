@@ -55,7 +55,7 @@ export default class Game {
             newIngredient.sprite.x = this.app.screen.width / 2;
             newIngredient.sprite.y = 0;
 
-            this.belt.addIngredient(newIngredient.sprite);
+            this.belt.addIngredient(newIngredient);
 
             this.app.stage.addChild(newIngredient.sprite);
         }, 1500);

@@ -24,8 +24,8 @@ export default class ConveyerBelt extends BaseSprite {
         }, 10);
     }
 
-    addIngredient(sprite) {
-        this.ingredients.push(sprite);
+    addIngredient(ingredient) {
+        this.ingredients.push(ingredient);
     }
 
 
@@ -38,5 +38,13 @@ export default class ConveyerBelt extends BaseSprite {
                 break;
             }
         }
+    }
+
+    setLastTypeHit(type) {
+        this.lastHit = type;
+    }
+
+    get lastHit() {
+        return this.lastHit;
     }
 }

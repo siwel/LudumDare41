@@ -5,6 +5,19 @@ export default class Ingredient extends BaseSprite {
         const image = Ingredient.images[type] || Ingredient.images['onion'];
 
         super(image, width, height);
+        this.type = type;
+    }
+
+    get y() {
+        return this.sprite.y;
+    }
+
+    set y(value) {
+        this.sprite.y = value;
+    }
+
+    destroy() {
+        this.sprite.destroy();
     }
 
     static get images() {
