@@ -50,18 +50,29 @@ export default class Game {
         // Temp until we have working gun
         this.belt.sprite.on('click', event => {
             this.belt.registerHit(event.data.global.y);
-        })
+        });
 
-        setInterval(() => {
+        this.spawnIngredient();
+
+    }
+
+    spawnIngredient(){
+        const spawnIngredientIntervalMIN = 1300;
+        const spawnIngredientIntervalMAX = 1500;
+
+        requestAnimationFrame(() => {
             const newIngredient = this.getNextIngredient(this.app.screen.width / 25, this.app.screen.height / 25);
 
             newIngredient.sprite.x = this.app.screen.width / 2;
             newIngredient.sprite.y = 0;
 
-            this.belt.addIngredient(newIngredient.sprite);
+            this.belt.addIngredient(newIngredient);
 
             this.app.stage.addChild(newIngredient.sprite);
-        }, 1500);
+
+            let timeout = Math.floor(Math.random() * spawnIngredientIntervalMAX) + spawnIngredientIntervalMIN;
+            setTimeout(() => this.spawnIngredient(), timeout)
+        })
     }
 
     initGun() {
