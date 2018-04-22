@@ -49,6 +49,9 @@ export default class Gun extends BaseSprite{
     }
 
     moveYAxis(newPosition) {
-        this.sprite.y = newPosition;
+       if (newPosition > 30 && newPosition < window.innerHeight-30) {
+           this.sprite.y = newPosition;
+       }
+
     }
 }
