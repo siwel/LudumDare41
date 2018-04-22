@@ -3,7 +3,10 @@ import * as PIXI from "pixi.js";
 export default class IngredientCardView {
 
     constructor(ingredients, location) {
-        this.container = new PIXI.Container();
+        var background = PIXI.Texture.fromImage('assets/IngredientCardBG.png');
+
+        this.container = new PIXI.Sprite(background);
+        this.container.anchor = new PIXI.Point(1, 0.5);
         this.location = location;
         this.ingredients = ingredients
     }
@@ -23,6 +26,7 @@ export default class IngredientCardView {
 
         this.container.x = this.location.x;
         this.container.y = this.location.y;
+
 
         this._mainFoodItem()
 

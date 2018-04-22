@@ -26,9 +26,8 @@ export default class RestaurantManager {
             return false;
         }
 
-        const table = new Table();
+        const table = new Table(this.stage, tableNumber);
         this.tables.set(tableNumber, table);
-
 
     }
 
@@ -40,9 +39,8 @@ export default class RestaurantManager {
         }
 
         for(let i = 0; i < MAX_CUSTOMERS; i++){
-            let tableNumber =  MAX_CUSTOMERS[i];
-            if(!this.tables.has(tableNumber)){
-                return tableNumber;
+            if(!this.tables.has(i)){
+                return i;
             }
         }
     }

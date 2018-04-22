@@ -5,8 +5,8 @@ class Plate {
 
 export default class Customer extends BaseSprite{
 
-    constructor(tableNumber) {
-        super();
+    constructor(width, height) {
+        super('assets/bunny.png', width, height)
     }
 
 

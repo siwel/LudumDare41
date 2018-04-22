@@ -9,8 +9,6 @@ import Recipes from "./Recipes";
 export default class Game {
     constructor () {
         this.activeIngredients = [];
-
-        this.generateIngratiateCardData();
     }
 
 	init () {
@@ -26,10 +24,7 @@ export default class Game {
         belt.sprite.y = app.screen.height / 2;
 
         const gun = new Gun(app.screen.height / 2);
-
-        app.stage.addChild(this.ingratiateCardData.getPlate());
-        app.stage.addChild(this.ingratiateCardData2.getPlate());
-        app.stage.addChild(this.ingratiateCardData3.getPlate());
+        
         app.stage.addChild(belt.sprite);
         app.stage.addChild(gun.sprite);
 
@@ -71,35 +66,6 @@ export default class Game {
     getNextIngredient(width, height) {
         const ingredientType = Recipes.ingredients[Math.floor(Math.random() * Recipes.ingredients.length)];
         return new Ingredient(ingredientType, width, height);
-    }
-
-    generateIngratiateCardData () {
-
-
-        this.location = {
-            x : window.innerWidth-100,
-            y : window.innerHeight*0.25
-        };
-
-        this.ingratiateCardData = new IngredientCardData(['onion', 'chess','carrot'],  this.location );
-        this.ingratiateCardData.init();
-
-        this.location2 = {
-            x : window.innerWidth-100,
-            y : window.innerHeight*0.5
-        };
-
-        this.ingratiateCardData2 = new IngredientCardData(['onion', 'chess', 'bun', 'beef'],  this.location2 );
-        this.ingratiateCardData2.init();
-
-        this.location3 = {
-            x : window.innerWidth-100,
-            y : window.innerHeight*0.75
-        };
-
-        this.ingratiateCardData3 = new IngredientCardData(['onion', 'chess'],  this.location3 );
-        this.ingratiateCardData3.init();
-
     }
 
 }

@@ -3,11 +3,14 @@ import Customer from "./Customer";
 import IngredientCardData from "../ingredients/IngredientCardData";
 import Game from "../../Game";
 import Recipes from "../../Recipes";
+import RestaurantManager from "./RestaurantManager";
 
 export default class Table {
 
 
     constructor(stage, tableNumber){
+
+        console.log(`ADDING A NEW TABLE AT ${tableNumber}`);
 
         /**
          * 
@@ -22,7 +25,7 @@ export default class Table {
         /**
          * @type {Recipes}
          */
-        this.recipe = Recipes.recipes[Math.floor(Math.random() * Game.recipes.length)];
+        this.recipe = Recipes.recipes[Math.floor(Math.random() * Recipes.recipes.length)];
 
         /**
          * @type {Plate}
@@ -36,11 +39,13 @@ export default class Table {
 
 
         this.location = {
-            x : window.innerWidth-100,
-            y : window.innerHeight*0.25
+            x : window.innerWidth,
+            y : (window.innerHeight / 3 ) * ( this.tableNumber + 1)
         };
         this.ingratiateCard = new IngredientCardData(['onion', 'chess','carrot'],  this.location );
         this.ingratiateCard.init();
+        this.stage.addChild(this.ingratiateCard.getPlate());
+
     }
 
 
