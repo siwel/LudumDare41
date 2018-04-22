@@ -16,6 +16,14 @@ export default class Ingredient extends BaseSprite {
         this.sprite.y = value;
     }
 
+    get x() {
+        return this.sprite.x;
+    }
+
+    set x(value) {
+        this.sprite.x = value;
+    }
+
     destroy() {
         this.sprite.destroy();
     }

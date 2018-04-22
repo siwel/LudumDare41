@@ -1,6 +1,6 @@
 import Plate from "./Plate";
 import Customer from "./Customer";
-import IngredientCardData from "../ingredients/IngredientCardData";
+import IngredientCardData from "../ingredientcard/IngredientCardData";
 import Game from "../../Game";
 import Recipes from "../../Recipes";
 import RestaurantManager from "./RestaurantManager";
