@@ -40,6 +40,7 @@ export default class Table {
 
         this.location = {
             x : window.innerWidth,
+            //FIXME: THIS LOGIC
             y : (window.innerHeight / 3 ) * ( this.tableNumber + 1)
         };
         this.ingratiateCard = new IngredientCardData(['onion', 'chess','carrot'],  this.location );

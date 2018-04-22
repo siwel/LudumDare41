@@ -16,6 +16,8 @@ export default class RestaurantManager {
 
         //TODO: Just for testing, need to add logic here.
         setInterval(() => this.newTable(), 5000);
+        this.newTable();
+
     }
 
     newTable() {
