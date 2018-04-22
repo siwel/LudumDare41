@@ -28,7 +28,6 @@ export default class Game {
         this.activeIngredients = [];
         this.belt = null;
         this.gun = null;
-        this.restaurantManager = null;
         this.ingredientsOnBelt = [];
     }
 
@@ -53,7 +52,8 @@ export default class Game {
         this.initGun();
         this.initController();
 
-        this.restaurantManager = new RestaurantManager(this.app);
+        // Initialise singleton
+        RestaurantManager.getInstance(this.app);
 
         // Listen for animate update
         this.app.ticker.add(delta => {
@@ -104,7 +104,7 @@ export default class Game {
             {
                 //TODO: need to work out what table number we have hit, guess the projectile will know?
                 const TABLE_NUMBER = 0;
-                const table = this.restaurantManager.getTableByNumber(TABLE_NUMBER);
+                const table = RestaurantManager.getInstance().getTableByNumber(TABLE_NUMBER);
                 table.addIngredient(ingredient);
                 this.belt.setLastTypeHit(null);
             }
@@ -183,7 +183,7 @@ export default class Game {
         {
             //TODO: need to work out what table number we have hit, guess the projectile will know?
             const TABLE_NUMBER = 0;
-            const table = this.restaurantManager.getTableByNumber(TABLE_NUMBER);
+            const table = RestaurantManager.getInstance().getTableByNumber(TABLE_NUMBER);
             table.addIngredient(ingredient);
             this.belt.setLastTypeHit(null);
         }

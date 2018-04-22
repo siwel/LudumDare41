@@ -13,6 +13,10 @@ export default class BaseSprite {
         this.pixiSprite.anchor.set(0.5);
     }
 
+    destroy() {
+        this.pixiSprite.destroy();
+    }
+
     get sprite() {
         return this.pixiSprite;
     }

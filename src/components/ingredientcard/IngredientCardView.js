@@ -32,6 +32,10 @@ export default class IngredientCardView {
 
     }
 
+    destroy() {
+        this.container.destroy();
+    }
+
     redraw(){
 
         this.ingredientToSpriteMap.clear();

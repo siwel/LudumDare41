@@ -10,6 +10,10 @@ export default class IngredientCardData {
         this.selectedIngredients = [];
     }
 
+    destroy() {
+        this.view.destroy();
+    }
+
     getPlate () {
         return this.view.getPlate();
     }

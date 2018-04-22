@@ -23,11 +23,7 @@ export default class Ingredient extends BaseSprite {
     set x(value) {
         this.sprite.x = value;
     }
-
-    destroy() {
-        this.sprite.destroy();
-    }
-
+    
     static get images() {
         return {
             'banana': 'assets/ingredients/banana.png',

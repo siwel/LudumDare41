@@ -1,9 +1,6 @@
 import BaseSprite from "../BaseSprite";
 import * as PIXI from "pixi.js";
 
-class Plate {
-}
-
 export default class Customer {
 
     constructor(app, tableNumber, location) {
@@ -25,6 +22,9 @@ export default class Customer {
         this.app.stage.addChild(this.dizzyAnimation);
     }
 
+    destroy() {
+        this.dizzyAnimation.destroy();
+    }
 
     playDizzyAnimation(){
         this.dizzyAnimation.play();

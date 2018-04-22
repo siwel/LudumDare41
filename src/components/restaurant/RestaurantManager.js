@@ -1,8 +1,15 @@
 import Table from "./Table";
 
+let _instance = null;
+const SINGLETON_ENFORCER = Symbol();
+
 export default class RestaurantManager {
 
-    constructor(app) {
+    constructor(enforcer, app) {
+
+        if (enforcer !== SINGLETON_ENFORCER) {
+            throw new Error('Singleton innit');
+        }
 
         /**
          * @type PIXI.Application
@@ -53,6 +60,19 @@ export default class RestaurantManager {
      */
     getTableByNumber(tableNumber) {
         return this.tables.get(tableNumber);
+    }
+
+    setTableComplete(tableNumber) {
+        this.tables.get(tableNumber).destroy();
+        this.tables.delete(tableNumber);
+    }
+
+    static getInstance(app) {
+        if (!_instance && app) {
+            _instance = new RestaurantManager(SINGLETON_ENFORCER, app);
+        }
+
+        return _instance;
     }
 
 }

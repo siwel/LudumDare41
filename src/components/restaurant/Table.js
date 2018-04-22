@@ -16,7 +16,7 @@ import RestaurantManager from "./RestaurantManager";
 export default class Table {
 
 
-    constructor(app, tableNumber){
+    constructor(app, tableNumber) {
 
         console.log(`ADDING A NEW TABLE AT ${tableNumber}`);
 
@@ -73,6 +73,12 @@ export default class Table {
 
     }
 
+    destroy() {
+        this.plate.destroy();
+        this.customer.destroy();
+        this.ingredientCard.destroy();
+    }
+
 
     _onBadIngredient(ingredient){
         this.customer.playDizzyAnimation();
@@ -97,7 +103,23 @@ export default class Table {
         this.ingredients.push(ingredient);
         this.ingredientCard.addIngredient(ingredient);
         this.plate.updatePlate(ingredient);
+        if (this.isComplete()) {
+            RestaurantManager.getInstance().setTableComplete(this.tableNumber);
+        }
         console.log(`CORRECT INGREDIENT ${ingredient}: OF ${this.recipe}`);
     }
 
+    isComplete() {
+        if (this.ingredients.length < this.recipe.length) {
+            return false;
+        }
+
+        for (let ingredient of this.ingredients) {
+            if (this.recipe.indexOf(ingredient) === -1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
