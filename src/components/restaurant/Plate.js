@@ -12,7 +12,7 @@ export default class Plate extends BaseSprite{
     }
 
     //TODO
-    updatePlate() {
+    updatePlate(ingredient) {
         this.sprite.rotation+= Math.PI/2;
     }
 

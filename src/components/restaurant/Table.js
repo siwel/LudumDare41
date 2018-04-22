@@ -74,25 +74,29 @@ export default class Table {
     }
 
 
+    _onBadIngredient(ingredient){
+        this.customer.playDizzyAnimation();
+        //TODO: INFORM PLATE, CARD
+    }
+
     addIngredient(ingredient){
 
         if(this.ingredients.includes(ingredient)){
             console.log(`WRONG INGREDIENT: WE ALREADY HAVE ${ingredient}`);
+            this._onBadIngredient(ingredient);
             return false;
         }
 
         if(this.recipe.includes(ingredient) !== true)
         {
             console.log(`WRONG INGREDIENT ${ingredient}: EXPECTED ${this.recipe}`);
-            //WE HAVE ADDED THE WRONG INGREDIENT
-            //TODO: INFORM PLATE, CARD AND CUSTOMER
-            this.customer.playDizzyAnimation();
+            this._onBadIngredient(ingredient);
             return false;
         }
 
         this.ingredients.push(ingredient);
         this.ingredientCard.addIngredient(ingredient);
-        this.plate.updatePlate();
+        this.plate.updatePlate(ingredient);
         console.log(`CORRECT INGREDIENT ${ingredient}: OF ${this.recipe}`);
     }
 
