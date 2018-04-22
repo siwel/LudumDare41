@@ -22,10 +22,15 @@ export default class Table {
          */
         this.tableNumber = tableNumber;
 
+        this.food = Recipes.food[Math.floor(Math.random() * Recipes.food.length)]
+
         /**
          * @type {Recipes}
          */
-        this.recipe = Recipes.recipes[Math.floor(Math.random() * Recipes.recipes.length)];
+        this.recipe = Recipes.recipes[this.food];
+
+
+        console.log(this.recipe);
 
         /**
          * @type {Plate}
@@ -41,9 +46,9 @@ export default class Table {
         this.location = {
             x : window.innerWidth,
             //FIXME: THIS LOGIC
-            y : (window.innerHeight / 3 ) * ( this.tableNumber + 1)
+            y : (window.innerHeight *0.20 ) * ( this.tableNumber + 1)
         };
-        this.ingratiateCard = new IngredientCardData(['onion', 'chess','carrot'],  this.location );
+        this.ingratiateCard = new IngredientCardData(this.recipe,  this.location );
         this.ingratiateCard.init();
         this.stage.addChild(this.ingratiateCard.getPlate());
 

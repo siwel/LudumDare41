@@ -19,7 +19,7 @@ export default class IngredientCardView {
         for (var i = 0; i < this.ingredients.length; i++) {
             var bunny = new PIXI.Sprite(this.plate);
             bunny.anchor.set(0.5);
-            bunny.x = (i ) * 25 - 100;
+            bunny.x = (i ) * 25 - 80;
             bunny.y = Math.floor(1) * 40;
             this.container.addChild(bunny);
         }
