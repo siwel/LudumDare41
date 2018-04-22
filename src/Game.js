@@ -1,46 +1,75 @@
 import * as PIXI from 'pixi.js';
 import ConveyerBelt from './components/ConveyerBelt';
 import Ingredient from './components/Ingredient';
-import IngredientCardData from "./components/plate_model/IngredientCardData";
 import Gun from './components/Gun';
+import IngredientCardData from "./components/ingredients/IngredientCardData";
+import RestaurantManager from "./components/restaurant/RestaurantManager";
+import Recipes from "./Recipes";
 import Keyboard from './components/Keyboard';
 
 export default class Game {
 
     constructor () {
         this.activeIngredients = [];
-
-        this.generateIngratiateCardData();
+        this.belt = null;
+        this.gun = null;
+        this.restaurantManager = null;
     }
 
 	init () {
-        var app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x1099bb});
-        document.body.appendChild(app.view);
+        this.app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x1099bb});
+        document.body.appendChild(this.app.view);
 
-        const belt = new ConveyerBelt(app.screen.width / 20, app.screen.height);
-        belt.sprite.interactive = true;
+        this.initBelt();
+        this.initGun();
+        this.initController();
 
-        belt.sprite.anchor.set(0.5);
+        this.restaurantManager = new RestaurantManager(this.app.stage);
 
-        belt.sprite.x = app.screen.width / 2;
-        belt.sprite.y = app.screen.height / 2;
+        // Listen for animate update
+        this.app.ticker.add(delta => {
+            // just for fun, let's rotate mr rabbit a little
+            // delta is 1 if running at 100% performance
+            // creates frame-independent transformation
+            // belt.rotation += 0.1 * delta;
+        });
+    }
 
-        const gun = new Gun(app.screen.height / 2);
+    initBelt() {
+        this.belt = new ConveyerBelt(this.app.screen.width / 20, this.app.screen.height);
+        this.belt.sprite.interactive = true;
 
-        app.stage.addChild(this.ingratiateCardData.getPlate());
-        app.stage.addChild(this.ingratiateCardData2.getPlate());
-        app.stage.addChild(this.ingratiateCardData3.getPlate());
-        app.stage.addChild(belt.sprite);
-        app.stage.addChild(gun.sprite);
+        this.belt.sprite.x = this.app.screen.width / 2;
+        this.belt.sprite.y = this.app.screen.height / 2;
+        this.belt.setIngredientHeight(this.app.screen.height / 25);
 
-        belt.setIngredientHeight(app.screen.height / 25);
+        this.app.stage.addChild(this.belt.sprite);
 
-        belt.start();
+        this.belt.start();
 
         // Temp until we have working gun
-        belt.sprite.on('click', event => {
-            belt.registerHit(event.data.global.y);
+        this.belt.sprite.on('click', event => {
+            this.belt.registerHit(event.data.global.y);
         })
+
+        setInterval(() => {
+            const newIngredient = this.getNextIngredient(this.app.screen.width / 25, this.app.screen.height / 25);
+
+            newIngredient.sprite.x = this.app.screen.width / 2;
+            newIngredient.sprite.y = 0;
+
+            this.belt.addIngredient(newIngredient.sprite);
+
+            this.app.stage.addChild(newIngredient.sprite);
+        }, 1500);
+    }
+
+    initGun() {
+        this.gun = new Gun(this.app.screen.height / 2);
+        this.app.stage.addChild(this.gun.sprite);
+    }
+
+    initController() {
 
         const arrowUp = 38;
         const arrowDown = 40;
@@ -50,65 +79,14 @@ export default class Game {
         var keyMoveGunDown = new Keyboard(arrowDown);
         var keyFireGun = new Keyboard(backspace);
 
-        keyMoveGunUp.key.press = () => gun.moveYAxis(gun.sprite.y - 1);
-        keyMoveGunDown.key.press = () => gun.moveYAxis(gun.sprite.y + 1);
+        keyMoveGunUp.key.press = () => this.gun.moveYAxis(this.gun.sprite.y - 1);
+        keyMoveGunDown.key.press = () => this.gun.moveYAxis(this.gun.sprite.y + 1);
 
-        setInterval(() => {
-            const newIngredient = this.getNextIngredient(app.screen.width / 25, app.screen.height / 25);
-
-            newIngredient.sprite.anchor.set(0.5);
-            newIngredient.sprite.x = app.screen.width / 2;
-            newIngredient.sprite.y = 0;
-
-            belt.addIngredient(newIngredient.sprite);
-
-            app.stage.addChild(newIngredient.sprite);
-        }, 1500);
-
-        // Listen for animate update
-        app.ticker.add(delta => {
-            // just for fun, let's rotate mr rabbit a little
-            // delta is 1 if running at 100% performance
-            // creates frame-independent transformation
-            // belt.rotation += 0.1 * delta;
-        });
     }
-    
+
     getNextIngredient(width, height) {
-        const ingredientType = Game.ingredients[Math.floor(Math.random() * Game.ingredients.length)];
+        const ingredientType = Recipes.ingredients[Math.floor(Math.random() * Recipes.ingredients.length)];
         return new Ingredient(ingredientType, width, height);
-    }
-
-    static get ingredients() { 
-        return ['onion', 'tomato', 'carrot', 'celery']; 
-    }
-
-    generateIngratiateCardData () {
-
-        this.location = {
-            x : window.innerWidth-100,
-            y : window.innerHeight*0.25
-        };
-
-        this.ingratiateCardData = new IngredientCardData(['onion', 'chess','carrot'],  this.location );
-        this.ingratiateCardData.init();
-
-        this.location2 = {
-            x : window.innerWidth-100,
-            y : window.innerHeight*0.5
-        };
-
-        this.ingratiateCardData2 = new IngredientCardData(['onion', 'chess', 'bun', 'beef'],  this.location2 );
-        this.ingratiateCardData2.init();
-
-        this.location3 = {
-            x : window.innerWidth-100,
-            y : window.innerHeight*0.75
-        };
-
-        this.ingratiateCardData3 = new IngredientCardData(['onion', 'chess'],  this.location3 );
-        this.ingratiateCardData3.init();
-
     }
 
 }

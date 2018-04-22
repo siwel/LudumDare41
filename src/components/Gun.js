@@ -5,7 +5,6 @@ export default class Gun extends BaseSprite{
   constructor(positionY) {
         super('assets/bunny.png', 50, 50);
 
-        this.sprite.anchor.set(0.5);
         this.sprite.x = 10;
         this.sprite.y = positionY;
 
