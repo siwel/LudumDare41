@@ -18,11 +18,12 @@ export default class Bullet extends BaseSprite {
             this.sprite.x+=10;
 
             if(this.sprite.x > window.innerWidth/2){
-                this.sprite.alpha = (window.innerWidth / this.sprite.x) - 1.5;
+                this.sprite.alpha = (window.innerWidth / this.sprite.x) - 1.3;
             }
 
             if(this.sprite.x > window.innerWidth){
                 this.sprite.x = -10;
+                this.sprite.alpha = 1;
                 return;
             }
 
