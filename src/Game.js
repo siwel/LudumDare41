@@ -120,7 +120,7 @@ export default class Game {
         const spawnIngredientIntervalMAX = 1500;
 
         requestAnimationFrame(() => {
-            const ingredientSize = 50;
+            const ingredientSize = 60;
             const newIngredient = this.getNextIngredient(ingredientSize, ingredientSize);
 
             newIngredient.sprite.x = this.app.screen.width / 2;
@@ -181,11 +181,19 @@ export default class Game {
         const ingredient = this.belt.lastHit;
         if(ingredient)
         {
-            //TODO: need to work out what table number we have hit, guess the projectile will know?
-            const TABLE_NUMBER = 0;
-            const table = RestaurantManager.getInstance().getTableByNumber(TABLE_NUMBER);
-            table.addIngredient(ingredient);
             this.belt.setLastTypeHit(null);
+            RestaurantManager.getInstance().getAllTables().forEach((table)=>{
+                var errorMargin = table.location.y *5/100;
+                var maxY = table.location.y + errorMargin;
+                var minY = table.location.y - errorMargin;
+
+                if(y>minY && y<maxY){
+                    table.addIngredient(ingredient);
+                    console.log(table.location)
+                }
+
+            })
+
         }
     }
 

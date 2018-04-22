@@ -67,6 +67,10 @@ export default class RestaurantManager {
         this.tables.delete(tableNumber);
     }
 
+    getAllTables () {
+        return this.tables;
+    }
+
     static getInstance(app) {
         if (!_instance && app) {
             _instance = new RestaurantManager(SINGLETON_ENFORCER, app);
