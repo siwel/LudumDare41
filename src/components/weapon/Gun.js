@@ -77,9 +77,9 @@ export default class Gun extends BaseSprite{
     }
 
     moveYAxis(newPosition) {
-       if (newPosition > 30 && newPosition < window.innerHeight-30) {
+       const height = window.document.getElementById('game').offsetHeight;
+       if (newPosition > 30 && newPosition < height-30) {
            this.sprite.y = newPosition;
        }
-
     }
 }
