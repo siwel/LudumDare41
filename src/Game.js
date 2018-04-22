@@ -81,7 +81,7 @@ export default class Game {
     }
 
     initBelt() {
-        this.belt = new ConveyerBelt(this.app.screen.width / 20, this.app.screen.height);
+        this.belt = new ConveyerBelt(72, this.app.screen.height);
         this.belt.sprite.interactive = true;
 
         this.belt.sprite.x = this.app.screen.width / 2;

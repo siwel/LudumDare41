@@ -2,7 +2,9 @@ import BaseSprite from './BaseSprite';
 
 export default class ConveyerBelt extends BaseSprite {
     constructor(width, height) {
-        super('assets/bunny.png', width, height);
+        super('assets/background/belt.png', width, height, true);
+
+        this.sprite.tileScale.set(0.5);
 
         this.ingredients = [];
         this.hitBuffer = 0;
