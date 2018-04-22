@@ -6,6 +6,7 @@ export default class Bullet extends BaseSprite {
         super('assets/bunny.png', 10, 10);
         this.sprite.x = -10;
         this.isMoving =false;
+        this._hasGonePastBelt = false;
     }
 
     moveBullet(yAxis) {
@@ -18,7 +19,7 @@ export default class Bullet extends BaseSprite {
         this.isMoving = true;
 
         requestAnimationFrame(()=>{
-            this.sprite.x+=10;
+            this.sprite.x+=30;
 
             if(this.sprite.x > window.innerWidth/2){
                 this.sprite.alpha = (window.innerWidth / this.sprite.x) - 1.3;
@@ -27,6 +28,7 @@ export default class Bullet extends BaseSprite {
             if(this.sprite.x > window.innerWidth){
                 this.sprite.x = -10;
                 this.sprite.alpha = 1;
+                this.hasGonePastBelt = false;
                 this.isMoving = false;
                 return;
             }
@@ -45,6 +47,14 @@ export default class Bullet extends BaseSprite {
     getY(){
 
         return this.sprite.y;
+    }
+
+    get hasGonePastBelt (){
+        return this._hasGonePastBelt;
+    }
+
+    set hasGonePastBelt (value){
+        this._hasGonePastBelt = value
     }
 
     isBulletMoving() {

@@ -111,28 +111,15 @@ export default class Game {
 
         this.belt.sprite.x = this.app.screen.width / 2;
         this.belt.sprite.y = this.app.screen.height / 2;
-        this.belt.setIngredientHeight(this.app.screen.height / 25);
+
+        this.belt.setIngredientHeight(Game.ingredientSize);
 
         this.app.stage.addChild(this.belt.sprite);
 
         this.belt.animate();
 
-        // Temp until we have working gun
-        this.belt.sprite.on('click', event => {
-            this.belt.registerHit(event.data.global.y);
-
-            const ingredient = this.belt.lastHit;
-
-            if(ingredient)
-            {
-                //TODO: need to work out what table number we have hit, guess the projectile will know?
-                const TABLE_NUMBER = 0;
-                const table = RestaurantManager.getInstance().getTableByNumber(TABLE_NUMBER);
-                table.addIngredient(ingredient);
-                this.belt.setLastTypeHit(null);
-            }
-
-        });
+        //TODO: Just for debugging
+        this.belt.sprite.on('mousedown', event => this.hitDetected(event.data.global.y));
 
         this.spawnIngredient();
 
@@ -143,8 +130,7 @@ export default class Game {
         const spawnIngredientIntervalMAX = 1500;
 
         requestAnimationFrame(() => {
-            const ingredientSize = 60;
-            const newIngredient = this.getNextIngredient(ingredientSize, ingredientSize);
+            const newIngredient = this.getNextIngredient(Game.ingredientSize, Game.ingredientSize);
 
             newIngredient.sprite.x = this.app.screen.width / 2;
             newIngredient.sprite.y = 0;
@@ -179,16 +165,20 @@ export default class Game {
 
                 if(bullet.isBulletMoving()){
                     this.belt.getIngredient().forEach((itemOnBelt)=>{
-                        var maxX = itemOnBelt.x+30;
-                        var minX = itemOnBelt.x-30;
-                        var maxY = itemOnBelt.y+30;
-                        var minY = itemOnBelt.y-30;
 
-                        if(bullet.getX()<maxX && bullet.getX() > minX
-                         && bullet.getY() < maxY && bullet.getY()> minY){
-                            console.log("we have a bit", itemOnBelt)
-                            this.hitDetected(bullet.getY())
+                        const buffer = 35;
+                        const maxX = itemOnBelt.x+buffer;
+                        const minX = itemOnBelt.x-buffer;
+
+                        let bulletX = bullet.getX();
+                        if(bulletX > minX)
+                        {
+                            if(bullet.getX() < maxX || bullet.hasGonePastBelt === false){
+                                bullet.hasGonePastBelt = true;
+                                this.hitDetected(bullet.getY())
+                            }
                         }
+
                     });
                 }
             });
@@ -206,7 +196,7 @@ export default class Game {
         {
             this.belt.setLastTypeHit(null);
             RestaurantManager.getInstance().getAllTables().forEach((table)=>{
-                var errorMargin = table.location.y *5/100;
+                var errorMargin = table.location.y *3/100;
                 var maxY = table.location.y + errorMargin;
                 var minY = table.location.y - errorMargin;
 
@@ -257,6 +247,11 @@ export default class Game {
     getNextIngredient(width, height) {
         const ingredientType = Recipes.ingredients[Math.floor(Math.random() * Recipes.ingredients.length)];
         return new Ingredient(ingredientType, width, height);
+    }
+
+
+    static get ingredientSize (){
+        return 60;
     }
 
 }

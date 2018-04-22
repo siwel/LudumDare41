@@ -6,6 +6,7 @@ export default class ConveyerBelt extends BaseSprite {
 
         this.sprite.tileScale.set(0.5);
 
+
         this.ingredients = [];
         this.hitBuffer = 0;
 
