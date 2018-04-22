@@ -120,7 +120,7 @@ export default class Game {
         const spawnIngredientIntervalMAX = 1500;
 
         requestAnimationFrame(() => {
-            const ingredientSize = 50;
+            const ingredientSize = 60;
             const newIngredient = this.getNextIngredient(ingredientSize, ingredientSize);
 
             newIngredient.sprite.x = this.app.screen.width / 2;
