@@ -8,15 +8,26 @@ export default class Bullet extends BaseSprite {
     }
 
     moveBullet(yAxis) {
-        this.sprite.y = yAxis;
-        this.id = setInterval(()=>{
-            this.sprite.x+=1;
+
+        if(yAxis)
+        {
+            this.sprite.y = yAxis;
+        }
+
+        requestAnimationFrame(()=>{
+            this.sprite.x+=10;
+
+            if(this.sprite.x > window.innerWidth/2){
+                this.sprite.alpha = (window.innerWidth / this.sprite.x) - 1.5;
+            }
 
             if(this.sprite.x > window.innerWidth){
-                clearInterval(this.id);
                 this.sprite.x = -10;
+                return;
             }
-        },0);
+
+            this.moveBullet();
+        });
 
 
     }

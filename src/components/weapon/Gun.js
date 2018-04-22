@@ -46,8 +46,7 @@ export default class Gun extends BaseSprite{
       if(this.firedBullet < this.MAX_BULLET) {
 
           this.bullettMagazine[this.firedBullet].moveBullet(yAxis ,this.firedBullet);
-
-          this.firedBullet+=1;
+          this.firedBullet++;
 
       }else {
           this.firedBullet = 0;
