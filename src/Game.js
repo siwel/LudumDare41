@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import ConveyerBelt from './components/ConveyerBelt';
 import Ingredient from './components/Ingredient';
 import Gun from './components/Gun';
-import IngredientCardData from "./components/ingredients/IngredientCardData";
+import IngredientCardData from "./components/ingredientcard/IngredientCardData";
 import RestaurantManager from "./components/restaurant/RestaurantManager";
 import Recipes from "./Recipes";
 import Keyboard from './components/Keyboard';
