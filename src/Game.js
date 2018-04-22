@@ -1,10 +1,12 @@
 import * as PIXI from 'pixi.js';
 import ConveyerBelt from './components/ConveyerBelt';
 import Ingredient from './components/Ingredient';
-import Gun from './components/Gun';
 import IngredientCardData from "./components/plate_model/IngredientCardData";
+import Gun from './components/Gun';
+import Keyboard from './components/Keyboard';
 
 export default class Game {
+
     constructor () {
         this.activeIngredients = [];
 
@@ -39,6 +41,17 @@ export default class Game {
         belt.sprite.on('click', event => {
             belt.registerHit(event.data.global.y);
         })
+
+        const arrowUp = 38;
+        const arrowDown = 40;
+        const backspace = 8;
+
+        var keyMoveGunUp = new Keyboard(arrowUp);
+        var keyMoveGunDown = new Keyboard(arrowDown);
+        var keyFireGun = new Keyboard(backspace);
+
+        keyMoveGunUp.key.press = () => gun.moveYAxis(gun.sprite.y - 1);
+        keyMoveGunDown.key.press = () => gun.moveYAxis(gun.sprite.y + 1);
 
         setInterval(() => {
             const newIngredient = this.getNextIngredient(app.screen.width / 25, app.screen.height / 25);
