@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+body > div {
+    width: 100%;
+}
+
+#topBar {
+    height: 10%;
+    background-color: #fff;
+}
+
+#game {
+    height: 90%;
+}

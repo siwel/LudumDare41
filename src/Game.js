@@ -7,6 +7,19 @@ import RestaurantManager from "./components/restaurant/RestaurantManager";
 import Recipes from "./Recipes";
 import Keyboard from './components/Keyboard';
 
+// #GameJam - turn string e.g. '1234px' into just the value as a number
+const pxToNum = strValue => {
+    const arr = strValue.split('');
+    const newArr = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (!Number.isInteger(+(arr[i]))) break;
+
+        newArr.push(arr[i]);
+    }
+
+    return +(newArr.join(''));
+}
+
 export default class Game {
 
     constructor () {
@@ -24,9 +37,13 @@ export default class Game {
 
 
 	onLoad (loader, resources) {
-        this.app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x1099bb});
-        document.body.appendChild(this.app.view);
+        const gameEl = document.getElementById('game');
+        const style = window.getComputedStyle(gameEl);
 
+        this.app = new PIXI.Application(pxToNum(style.getPropertyValue('width')), pxToNum(style.getPropertyValue('height')), {backgroundColor : 0x1099bb});
+        gameEl.appendChild(this.app.view);
+
+        this.initTopBar();
         this.initBelt();
         this.initGun();
         this.initController();
@@ -42,6 +59,17 @@ export default class Game {
 
 
         });
+    }
+
+    initTopBar() {
+        const barEl = document.getElementById('topBar');
+        const style = window.getComputedStyle(barEl);
+
+        this.topBar = new PIXI.Application(pxToNum(style.getPropertyValue('width')), pxToNum(style.getPropertyValue('height')), {backgroundColor: 0xFF0000})
+        barEl.appendChild(this.topBar.view);
+
+        const logo = new PIXI.Text('Hangover Kitchen', { fontFamily : 'Wingdings', fontSize: 24, fill: 0x000000, align: 'center' });
+        this.topBar.stage.addChild(logo);
     }
 
     initBelt() {

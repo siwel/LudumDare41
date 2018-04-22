@@ -29,6 +29,10 @@ module.exports = {
 						cacheDirectory: true
 					}
 				}, include: path.join(__dirname, 'src')
+			},
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader']
 			}
 		]
 	},
