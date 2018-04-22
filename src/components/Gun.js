@@ -47,4 +47,8 @@ export default class Gun extends BaseSprite{
             this.y = newPosition.y;
         }
     }
+
+    moveYAxis(newPosition) {
+        this.sprite.y = newPosition;
+    }
 }

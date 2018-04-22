@@ -5,8 +5,10 @@ import Gun from './components/Gun';
 import IngredientCardData from "./components/ingredients/IngredientCardData";
 import RestaurantManager from "./components/restaurant/RestaurantManager";
 import Recipes from "./Recipes";
+import Keyboard from './components/Keyboard';
 
 export default class Game {
+
     constructor () {
         this.activeIngredients = [];
         this.belt = null;
@@ -20,8 +22,9 @@ export default class Game {
 
         this.initBelt();
         this.initGun();
+        this.initController();
 
-        this.restaurantManager = new RestaurantManager(this.app.stage);
+        this.restaurantManager = new RestaurantManager(this.app);
 
         // Listen for animate update
         this.app.ticker.add(delta => {
@@ -29,6 +32,8 @@ export default class Game {
             // delta is 1 if running at 100% performance
             // creates frame-independent transformation
             // belt.rotation += 0.1 * delta;
+
+
         });
     }
 
@@ -47,9 +52,17 @@ export default class Game {
         // Temp until we have working gun
         this.belt.sprite.on('click', event => {
             this.belt.registerHit(event.data.global.y);
-        })
+        });
 
-        setInterval(() => {
+        this.spawnIngredient();
+
+    }
+
+    spawnIngredient(){
+        const spawnIngredientIntervalMIN = 1300;
+        const spawnIngredientIntervalMAX = 1500;
+
+        requestAnimationFrame(() => {
             const newIngredient = this.getNextIngredient(this.app.screen.width / 25, this.app.screen.height / 25);
 
             newIngredient.sprite.x = this.app.screen.width / 2;
@@ -58,14 +71,41 @@ export default class Game {
             this.belt.addIngredient(newIngredient);
 
             this.app.stage.addChild(newIngredient.sprite);
-        }, 1500);
+
+            let timeout = Math.floor(Math.random() * spawnIngredientIntervalMAX) + spawnIngredientIntervalMIN;
+            setTimeout(() => this.spawnIngredient(), timeout)
+        })
     }
 
     initGun() {
-        const gun = new Gun(this.app.screen.height / 2);
-        this.app.stage.addChild(gun.sprite);
+        this.gun = new Gun(this.app.screen.height / 2);
+        this.app.stage.addChild(this.gun.sprite);
     }
-    
+
+    initController() {
+
+        const arrowUp = 38;
+        const arrowDown = 40;
+        const backspace = 8;
+
+        var keyMoveGunUp = new Keyboard(arrowUp);
+        var keyMoveGunDown = new Keyboard(arrowDown);
+        var keyFireGun = new Keyboard(backspace);
+
+        keyMoveGunUp.key.press = (delta) => this.gun.moveYAxis(this.gun.sprite.y - (3 * delta || 1));
+        keyMoveGunDown.key.press = (delta) => this.gun.moveYAxis(this.gun.sprite.y + (3 * delta || 1));
+
+        this.app.ticker.add(delta => {
+            if(keyMoveGunUp.key.isDown){
+                keyMoveGunUp.key.press(delta);
+            }
+            if(keyMoveGunDown.key.isDown){
+                keyMoveGunDown.key.press(delta);
+            }
+        });
+
+    }
+
     getNextIngredient(width, height) {
         const ingredientType = Recipes.ingredients[Math.floor(Math.random() * Recipes.ingredients.length)];
         return new Ingredient(ingredientType, width, height);

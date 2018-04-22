@@ -2,12 +2,12 @@ import Table from "./Table";
 
 export default class RestaurantManager {
 
-    constructor(stage) {
+    constructor(app) {
 
         /**
-         * @type PIXI.Stage
+         * @type PIXI.Application
          */
-        this.stage = stage;
+        this.app = app;
 
         /**
          * @type {Map<Number, Table>}
@@ -28,7 +28,7 @@ export default class RestaurantManager {
             return false;
         }
 
-        const table = new Table(this.stage, tableNumber);
+        const table = new Table(this.app, tableNumber);
         this.tables.set(tableNumber, table);
 
     }

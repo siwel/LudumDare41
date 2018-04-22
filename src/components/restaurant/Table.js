@@ -8,14 +8,14 @@ import RestaurantManager from "./RestaurantManager";
 export default class Table {
 
 
-    constructor(stage, tableNumber){
+    constructor(app, tableNumber){
 
         console.log(`ADDING A NEW TABLE AT ${tableNumber}`);
 
         /**
          * 
          */
-        this.stage = stage;
+        this.app = app;
 
         /**
          *
@@ -42,15 +42,14 @@ export default class Table {
          */
         this.customer = new Customer();
 
-
+        const sectionHeight = this.app.screen.height / 3;
         this.location = {
-            x : window.innerWidth,
-            //FIXME: THIS LOGIC
-            y : (window.innerHeight *0.20 ) * ( this.tableNumber + 1)
+            x : this.app.screen.width,
+            y : sectionHeight * this.tableNumber + (sectionHeight/2)
         };
         this.ingratiateCard = new IngredientCardData(this.recipe,  this.location );
         this.ingratiateCard.init();
-        this.stage.addChild(this.ingratiateCard.getPlate());
+        this.app.stage.addChild(this.ingratiateCard.getPlate());
 
     }
 
