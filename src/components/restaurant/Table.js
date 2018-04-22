@@ -5,6 +5,14 @@ import Game from "../../Game";
 import Recipes from "../../Recipes";
 import RestaurantManager from "./RestaurantManager";
 
+
+/**
+ * TODO:
+ * - Table type, I believe design have two types. Patient (Easy) and Impatient (Hard)
+ * - Countdown Timer, and inform the RestaurantManager when the table is leaving
+ * - Complected State
+ *
+ */
 export default class Table {
 
 
@@ -12,20 +20,18 @@ export default class Table {
 
         console.log(`ADDING A NEW TABLE AT ${tableNumber}`);
 
-
         /**
-         * 
+         * @type PIXI.Application
          */
         this.app = app;
 
         /**
-         *
+         * @type Number
          */
         this.tableNumber = tableNumber;
 
         /**
-         *
-         * @type {number}
+         * @type {Number}
          */
         const sectionHeight = this.app.screen.height / 3;
         this.location = {
@@ -33,20 +39,22 @@ export default class Table {
             y : sectionHeight * this.tableNumber + (sectionHeight/2)
         };
 
-        this.food = Recipes.food[Math.floor(Math.random() * Recipes.food.length)]
+        /**
+         * The name of the final item (eg, Spaghetti Bolognese)
+         */
+        this.food = Recipes.food[Math.floor(Math.random() * Recipes.food.length)];
 
         /**
-         * @type {Recipes}
+         * And array of all the ingredients needed for a recipe (eg. ['tomato', 'carrot'])
+         * @type {[String]}
          */
         this.recipe = Recipes.recipes[this.food];
 
         /**
-         * The ingredient we have been given
+         * The ingredients list we have been given so far
          * @type {Array}
          */
         this.ingredients = [];
-
-        console.log(this.recipe);
 
         /**
          * @type {Plate}
@@ -59,9 +67,9 @@ export default class Table {
         this.customer = new Customer();
 
 
-        this.ingratiateCard = new IngredientCardData(this.recipe,  this.location );
-        this.ingratiateCard.init();
-        this.app.stage.addChild(this.ingratiateCard.getPlate());
+        this.ingredientCard = new IngredientCardData(this.recipe,  this.location );
+        this.ingredientCard.init();
+        this.app.stage.addChild(this.ingredientCard.getPlate());
         this.app.stage.addChild(this.plate.sprite)
 
     }
@@ -83,7 +91,7 @@ export default class Table {
         }
 
         this.ingredients.push(ingredient);
-        this.ingratiateCard.addIngredient(ingredient);
+        this.ingredientCard.addIngredient(ingredient);
     }
 
 }
