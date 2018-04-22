@@ -34,6 +34,29 @@ export default class Game {
     init() {
         const loader = PIXI.loader;
         loader.add('assets/characters/test.json');
+
+
+        //PRELOAD THE ingredients SO THEY DON'T POP IN ON THE BELT
+        loader.add('assets/ingredients/banana.png');
+        loader.add('assets/ingredients/bread.png');
+        loader.add('assets/ingredients/chicken.png');
+        loader.add('assets/ingredients/chocolate.png');
+        loader.add('assets/ingredients/egg.png');
+        loader.add('assets/ingredients/eye.png');
+        loader.add('assets/ingredients/fish.png');
+        loader.add('assets/ingredients/milk.png');
+        loader.add('assets/ingredients/porridge.png');
+        loader.add('assets/ingredients/rice.png');
+        loader.add('assets/ingredients/sauce.png');
+        loader.add('assets/ingredients/spider.png');
+        loader.add('assets/ingredients/sugar.png');
+        loader.add('assets/ingredients/bananaHotdog.png');
+        loader.add('assets/ingredients/chickenCottonCandy.png');
+        loader.add('assets/ingredients/chocolateRisotto.png');
+        loader.add('assets/ingredients/cowEyePorridge.png');
+        loader.add('assets/ingredients/fishMilkshake.png');
+        loader.add('assets/ingredients/spiderCake.png');
+
         loader.load((loader, resources) => this.onLoad(loader, resources));
 
     }
