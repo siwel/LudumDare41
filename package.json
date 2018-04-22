@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/siwel/LudumDare41#readme",
   "dependencies": {
+    "howler": "^2.0.9",
     "pixi.js": "^4.7.3"
   },
   "devDependencies": {
