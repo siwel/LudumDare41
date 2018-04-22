@@ -24,7 +24,7 @@ export default class Game {
         this.initGun();
         this.initController();
 
-        this.restaurantManager = new RestaurantManager(this.app.stage);
+        this.restaurantManager = new RestaurantManager(this.app);
 
         // Listen for animate update
         this.app.ticker.add(delta => {
