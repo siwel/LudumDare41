@@ -2,7 +2,9 @@ import * as PIXI from 'pixi.js';
 import ConveyerBelt from './components/ConveyerBelt';
 import Ingredient from './components/Ingredient';
 import Gun from './components/Gun';
-import IngredientCardData from "./components/plate_model/IngredientCardData";
+import IngredientCardData from "./components/ingredients/IngredientCardData";
+import RestaurantManager from "./components/restaurant/RestaurantManager";
+import Recipes from "./Recipes";
 
 export default class Game {
     constructor () {
@@ -33,6 +35,11 @@ export default class Game {
 
         belt.setIngredientHeight(app.screen.height / 25);
 
+        app.stage.addChild(belt.sprite);
+
+
+        this.restaurantManager = new RestaurantManager(app.stage);
+
         belt.start();
 
         // Temp until we have working gun
@@ -62,15 +69,12 @@ export default class Game {
     }
     
     getNextIngredient(width, height) {
-        const ingredientType = Game.ingredients[Math.floor(Math.random() * Game.ingredients.length)];
+        const ingredientType = Recipes.ingredients[Math.floor(Math.random() * Recipes.ingredients.length)];
         return new Ingredient(ingredientType, width, height);
     }
 
-    static get ingredients() { 
-        return ['onion', 'tomato', 'carrot', 'celery']; 
-    }
-
     generateIngratiateCardData () {
+
 
         this.location = {
             x : window.innerWidth-100,
