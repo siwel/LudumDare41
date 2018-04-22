@@ -68,7 +68,6 @@ export default class Table {
 
 
         this.ingredientCard = new IngredientCardData(this.recipe,  this.location );
-        this.ingredientCard.init();
         this.app.stage.addChild(this.ingredientCard.getPlate());
         this.app.stage.addChild(this.plate.sprite)
 
