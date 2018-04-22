@@ -1,5 +1,6 @@
 import BaseSprite from '../BaseSprite';
 import Bullet from './Bullet';
+import {Howl} from 'howler';
 
 export default class Gun extends BaseSprite{
 
@@ -32,6 +33,12 @@ export default class Gun extends BaseSprite{
             .on('pointermove', this.onDragMove);
 
         this.addBullet();
+
+
+      this.fireSound = new Howl({
+          src: ['assets/sounds/fire.mp3']
+      });
+
     }
 
     addBullet() {
@@ -44,8 +51,8 @@ export default class Gun extends BaseSprite{
     fire (yAxis) {
 
       if(this.firedBullet < this.MAX_BULLET) {
-
           this.bullettMagazine[this.firedBullet].moveBullet(yAxis ,this.firedBullet);
+          this.fireSound.play();
           this.firedBullet++;
 
       }else {
