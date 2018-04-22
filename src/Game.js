@@ -7,6 +7,7 @@ import RestaurantManager from "./components/restaurant/RestaurantManager";
 import Recipes from "./Recipes";
 import Keyboard from './components/Keyboard';
 import HealthBar from './components/HealthBar';
+import BaseSprite from "./components/BaseSprite";
 
 // #GameJam - turn string e.g. '1234px' into just the value as a number
 const pxToNum = strValue => {
@@ -45,6 +46,7 @@ export default class Game {
         gameEl.appendChild(this.app.view);
 
         this.initTopBar();
+        this.initBg();
         this.initBelt();
         this.initGun();
         this.initController();
@@ -137,6 +139,12 @@ export default class Game {
             this.app.stage.addChild(bullet.sprite);
         });
 
+    }
+
+    initBg(){
+        const background = new BaseSprite('assets/background/background.png',this.app.screen.width, this.app.screen.height );
+        background.sprite.anchor.set(0);
+        this.app.stage.addChild(background.sprite);
     }
 
     initController() {
