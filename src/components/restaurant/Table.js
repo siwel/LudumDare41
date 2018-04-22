@@ -67,7 +67,7 @@ export default class Table {
         this.customer = new Customer(app, tableNumber, this.location);
 
 
-        this.ingredientCard = new IngredientCardData(this.recipe,  this.location );
+        this.ingredientCard = new IngredientCardData(this.recipe,  this.location, this.food );
         this.app.stage.addChild(this.ingredientCard.getPlate());
         this.app.stage.addChild(this.plate.sprite)
 

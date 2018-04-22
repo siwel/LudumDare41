@@ -3,7 +3,7 @@ import Ingredient from "../Ingredient";
 
 export default class IngredientCardView {
 
-    constructor(ingredients, location) {
+    constructor(ingredients, location, food) {
 
         /**
          * @type {PIXI.Point}
@@ -15,6 +15,11 @@ export default class IngredientCardView {
          */
         this.ingredients = ingredients;
 
+
+        /**
+         *
+         */
+        this.food = food;
 
         let background = PIXI.Texture.fromImage('assets/IngredientCardBG.png');
         this.container = new PIXI.Sprite(background);
@@ -50,20 +55,21 @@ export default class IngredientCardView {
         for (let i = 0; i < this.ingredients.length; i++) {
 
             let ingredient = new Ingredient(this.ingredients[i], 30, 30);
-            ingredient.x = (i ) * 25 - 80;
-            ingredient.y = Math.floor(1) * 40;
+            ingredient.x = (i) * 30 - 75;
+            ingredient.y = 45;
             this.ingredientToSpriteMap.set(this.ingredients[i], ingredient);
             this.container.addChild(ingredient.sprite);
         }
     }
 
     drawMainFoodItem () {
-        let sprite = PIXI.Texture.fromImage('assets/bunny.png');
-        let bunny = new PIXI.Sprite(sprite);
-        bunny.anchor.set(0.5);
-        bunny.x = (1 ) * 25 - 80;
-        bunny.y = Math.floor(1) * -40;
-        this.container.addChild(bunny);
+
+        let food = new Ingredient(this.food, 80, 80);
+
+        food.sprite.anchor.set(0.5);
+        food.x = -45;
+        food.y = -30;
+        this.container.addChild(food.sprite);
     }
 
     getPlate() {

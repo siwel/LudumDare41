@@ -3,10 +3,10 @@ import IngredientCardView from "./IngredientCardView";
 
 export default class IngredientCardData {
 
-    constructor(ingredients, location) {
+    constructor(ingredients, location, food) {
 
         this.location = location;
-        this.view = new IngredientCardView(ingredients,this.location);
+        this.view = new IngredientCardView(ingredients,this.location, food);
         this.selectedIngredients = [];
     }
 
