@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import ConveyerBelt from './components/ConveyerBelt';
 import Ingredient from './components/Ingredient';
+import Gun from './components/Gun';
 import IngredientCardData from "./components/plate_model/IngredientCardData";
 
 export default class Game {
@@ -22,10 +23,13 @@ export default class Game {
         belt.sprite.x = app.screen.width / 2;
         belt.sprite.y = app.screen.height / 2;
 
+        const gun = new Gun(app.screen.height / 2);
+
         app.stage.addChild(this.ingratiateCardData.getPlate());
         app.stage.addChild(this.ingratiateCardData2.getPlate());
         app.stage.addChild(this.ingratiateCardData3.getPlate());
         app.stage.addChild(belt.sprite);
+        app.stage.addChild(gun.sprite);
 
         belt.setIngredientHeight(app.screen.height / 25);
 
