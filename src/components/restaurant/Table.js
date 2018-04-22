@@ -64,7 +64,7 @@ export default class Table {
         /**
          * @type {Customer}
          */
-        this.customer = new Customer();
+        this.customer = new Customer(app, tableNumber, this.location);
 
 
         this.ingredientCard = new IngredientCardData(this.recipe,  this.location );
@@ -86,6 +86,7 @@ export default class Table {
             console.log(`WRONG INGREDIENT ${ingredient}: EXPECTED ${this.recipe}`);
             //WE HAVE ADDED THE WRONG INGREDIENT
             //TODO: INFORM PLATE, CARD AND CUSTOMER
+            this.customer.playDizzyAnimation();
             return false;
         }
 

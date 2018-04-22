@@ -16,7 +16,14 @@ export default class Game {
         this.restaurantManager = null;
     }
 
-	init () {
+    init() {
+        const loader = PIXI.loader;
+        loader.add('assets/characters/test.json');
+        loader.load((loader, resources) => this.onLoad(loader, resources));
+    }
+
+
+	onLoad (loader, resources) {
         this.app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x1099bb});
         document.body.appendChild(this.app.view);
 
