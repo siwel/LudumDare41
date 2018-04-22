@@ -56,7 +56,10 @@ export default class Gun extends BaseSprite{
           this.firedBullet++;
 
       }else {
-          this.firedBullet = 0;
+          setTimeout(()=>{
+              this.firedBullet = 0;
+          }, 3000);
+
       }
     }
 

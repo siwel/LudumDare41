@@ -55,4 +55,8 @@ export default class RestaurantManager {
         return this.tables.get(tableNumber);
     }
 
+    getAllTables () {
+        return this.tables;
+    }
+
 }
