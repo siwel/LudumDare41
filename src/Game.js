@@ -6,6 +6,7 @@ import IngredientCardData from "./components/ingredientcard/IngredientCardData";
 import RestaurantManager from "./components/restaurant/RestaurantManager";
 import Recipes from "./Recipes";
 import Keyboard from './components/Keyboard';
+import HealthBar from './components/HealthBar';
 
 // #GameJam - turn string e.g. '1234px' into just the value as a number
 const pxToNum = strValue => {
@@ -70,6 +71,11 @@ export default class Game {
 
         const logo = new PIXI.Text('Hangover Kitchen', { fontFamily : 'Wingdings', fontSize: 24, fill: 0x000000, align: 'center' });
         this.topBar.stage.addChild(logo);
+
+        const healthBar = new HealthBar(this.topBar.screen.width, this.topBar.screen.height / 2);
+        healthBar.sprite.x = this.topBar.screen.width / 2;
+        healthBar.sprite.y = this.topBar.screen.height / 2;
+        this.topBar.stage.addChild(healthBar.sprite);
     }
 
     initBelt() {
