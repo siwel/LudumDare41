@@ -30,6 +30,10 @@ export default class ConveyerBelt extends BaseSprite {
         this.ingredients.push(ingredient);
     }
 
+    getIngredient() {
+        return this.ingredients;
+    }
+
 
     registerHit(y) {
         for (let i = 0; i < this.ingredients.length; i++) {

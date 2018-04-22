@@ -29,12 +29,14 @@ export default class Game {
         this.belt = null;
         this.gun = null;
         this.restaurantManager = null;
+        this.ingredientsOnBelt = [];
     }
 
     init() {
         const loader = PIXI.loader;
         loader.add('assets/characters/test.json');
         loader.load((loader, resources) => this.onLoad(loader, resources));
+
     }
 
 
@@ -129,7 +131,10 @@ export default class Game {
 
             let timeout = Math.floor(Math.random() * spawnIngredientIntervalMAX) + spawnIngredientIntervalMIN;
             setTimeout(() => this.spawnIngredient(), timeout)
+
         })
+
+
     }
 
     initGun() {
@@ -139,6 +144,48 @@ export default class Game {
             this.app.stage.addChild(bullet.sprite);
         });
 
+        this.simpleBulletHitCheck()
+
+    }
+
+    simpleBulletHitCheck() {
+        requestAnimationFrame(() => {
+
+            this.gun.bullettMagazine.forEach((bullet)=>{
+
+                if(bullet.isBulletMoving()){
+                    this.belt.getIngredient().forEach((itemOnBelt)=>{
+                        var maxX = itemOnBelt.x+30;
+                        var minX = itemOnBelt.x-30;
+                        var maxY = itemOnBelt.y+30;
+                        var minY = itemOnBelt.y-30;
+
+                        if(bullet.getX()<maxX && bullet.getX() > minX
+                         && bullet.getY() < maxY && bullet.getY()> minY){
+                            console.log("we have a bit", itemOnBelt)
+                            this.hitDetected(bullet.getY())
+                        }
+                    });
+                }
+            });
+
+            this.simpleBulletHitCheck()
+        });
+
+    }
+
+    hitDetected(y){
+
+        this.belt.registerHit(y);
+        const ingredient = this.belt.lastHit;
+        if(ingredient)
+        {
+            //TODO: need to work out what table number we have hit, guess the projectile will know?
+            const TABLE_NUMBER = 0;
+            const table = this.restaurantManager.getTableByNumber(TABLE_NUMBER);
+            table.addIngredient(ingredient);
+            this.belt.setLastTypeHit(null);
+        }
     }
 
     initBg(){
