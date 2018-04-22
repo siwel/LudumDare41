@@ -157,9 +157,10 @@ export default class Game {
         var keyMoveGunDown = new Keyboard(arrowDown);
         var keyFireGun = new Keyboard(backspace);
 
-        keyMoveGunUp.key.press = (delta) => this.gun.moveYAxis(this.gun.sprite.y - (3 * delta || 1));
-        keyMoveGunDown.key.press = (delta) => this.gun.moveYAxis(this.gun.sprite.y + (3 * delta || 1));
-        keyFireGun.key.press = (delta) => this.gun.fire(this.gun.sprite.y + (3 * delta || 1));
+        const GUN_MOVEMENT_SPEED = 5;
+        keyMoveGunUp.key.press = (delta) => this.gun.moveYAxis(this.gun.sprite.y - (GUN_MOVEMENT_SPEED * delta || 1));
+        keyMoveGunDown.key.press = (delta) => this.gun.moveYAxis(this.gun.sprite.y + (GUN_MOVEMENT_SPEED * delta || 1));
+        keyFireGun.key.press = () => this.gun.fire(this.gun.sprite.y);
 
         this.app.ticker.add(delta => {
             if(keyMoveGunUp.key.isDown){
