@@ -181,11 +181,20 @@ export default class Game {
         const ingredient = this.belt.lastHit;
         if(ingredient)
         {
-            //TODO: need to work out what table number we have hit, guess the projectile will know?
-            const TABLE_NUMBER = 0;
-            const table = this.restaurantManager.getTableByNumber(TABLE_NUMBER);
-            table.addIngredient(ingredient);
+
             this.belt.setLastTypeHit(null);
+            this.restaurantManager.getAllTables().forEach((table)=>{
+                var errorMargin = table.location.y *5/100;
+                var maxY = table.location.y + errorMargin;
+                var minY = table.location.y - errorMargin;
+
+                if(y>minY && y<maxY){
+                    table.addIngredient(ingredient);
+                    console.log(table.location)
+                }
+
+            })
+
         }
     }
 
