@@ -249,7 +249,7 @@ export default class Game {
             this.healthBar.addHealth();
             setInterval(() => {
                 this.hitCountDelay = false
-            }, 5000)
+            }, 1000)
         }
     }
 
@@ -260,7 +260,7 @@ export default class Game {
             this.healthBar.removeHealth();
             setInterval(() => {
                 this.missCountdelay = false
-            }, 5000)
+            }, 1000)
         }
     }
 
