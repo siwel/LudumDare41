@@ -26,6 +26,11 @@ export default class RestaurantManager {
          */
         this.tableJustFinished = false;
 
+        this.reviewData = {
+            tablesCompleted: 0,
+            tablesFailed: 0,
+        };
+
         //TODO: Just for testing, need to add logic here.
         setInterval(() => this.newTable(), 30000);
         this.newTable();
@@ -71,12 +76,24 @@ export default class RestaurantManager {
         this.tables.get(tableNumber).destroy();
         this.tables.delete(tableNumber);
         this.tableJustFinished = true;
+        this.reviewData.tablesCompleted++;
     }
 
     setTableFailed(tableNumber){
-        //TODO: BAD SCORE?
         this.tables.get(tableNumber).destroy();
         this.tables.delete(tableNumber);
+        this.reviewData.tablesFailed++;
+    }
+
+    generateReview() {
+        const c = this.reviewData.tablesCompleted;
+        const f = this.reviewData.tablesFailed;
+
+        const stars = (c === 0) ? 0
+            : (f === 0) ? 5
+            : Math.floor((c / (c + f)) * 10) / 2;
+
+            return stars;
     }
 
     getAllTables () {

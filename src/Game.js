@@ -292,6 +292,16 @@ export default class Game {
             this.bgsound.stop();
         }
 
+        // TODO: Stop game playing
+
+        const stars = RestaurantManager.getInstance().generateReview();
+
+        this.showGameOverScreen(stars);
+
+    }
+
+    showGameOverScreen(stars) {
+        // TODO
     }
 
     initBg() {
