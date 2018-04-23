@@ -36,8 +36,9 @@ export default class Gun extends BaseSprite{
 
 
       this.fireSound = new Howl({
-          src: ['assets/sounds/fire.mp3']
+          src: ['assets/sounds/blurp.flac']
       });
+
 
     }
 
