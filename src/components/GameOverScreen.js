@@ -33,7 +33,7 @@ export default class GameOverScreen {
 
         text.fontFamily = "Luckiest+Guy";
 
-        text.position = new PIXI.Point(300, 300);
+        text.position = new PIXI.Point(window.innerWidth * 0.25+50, 300);
 
         this.screen.addChild(text);
     }
