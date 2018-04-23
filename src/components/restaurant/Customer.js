@@ -22,11 +22,11 @@ export default class Customer {
 
     _initDizzy(){
         var frames = [];
-        for (var i = 0; i < 60; i++) {
+        for (var i = 1; i < 27; i++) {
             var val = i < 10 ? '0' + i : i;
 
             // magically works since the spritesheet was loaded with the pixi loader
-            frames.push(PIXI.Texture.fromFrame('Armature_animtion0_'+val+'.png'));
+            frames.push(PIXI.Texture.fromFrame('customerunhappy00'+val+'.png'));
         }
 
         this.dizzyAnimation = new PIXI.extras.AnimatedSprite(frames);
