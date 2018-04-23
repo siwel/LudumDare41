@@ -237,7 +237,7 @@ export default class Game {
 
     hitDetected(y) {
 
-        this.belt.setLastTypeHit(null);
+        //this.belt.setLastTypeHit(null);
         this.belt.registerHit(y);
 
 
