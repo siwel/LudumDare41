@@ -58,7 +58,7 @@ export default class Gun{
 
 
       this.fireSound = new Howl({
-          src: ['assets/sounds/blurp.flac']
+          src: ['assets/sounds/fire.mp3']
       });
 
       this.magazineView = new Magazine(this.MAX_BULLET);

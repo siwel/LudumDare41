@@ -7,6 +7,7 @@ import Recipes from "./Recipes";
 import Keyboard from './components/Keyboard';
 import HealthBar from './components/HealthBar';
 import BaseSprite from "./components/BaseSprite";
+import GameOverScreen from './components/GameOverScreen';
 import {Howl} from "howler";
 
 // #GameJam - turn string e.g. '1234px' into just the value as a number
@@ -31,7 +32,7 @@ export default class Game {
         this.ingredientsOnBelt = [];
 
         this.bgsound = new Howl({
-            src: ['assets/sounds/main_game_music.flac'],
+            src: ['assets/sounds/main_game_music.mp3'],
             loop: true,
             volume: 0.3,
         });
@@ -39,11 +40,11 @@ export default class Game {
         this.bgsound.play();
 
         this.hitSound = new Howl({
-            src: ['assets/sounds/hit_pstve.flac']
+            src: ['assets/sounds/hit_pstve.mp3']
         });
 
         this.loseSound = new Howl({
-            src: ['assets/sounds/losing_theme.flac']
+            src: ['assets/sounds/losing_theme.mp3']
         });
 
 
@@ -103,6 +104,9 @@ export default class Game {
 
         // Initialise singleton
         RestaurantManager.getInstance(this.app);
+
+        // TODO: remove
+        document.addEventListener('click', this.showGameOverScreen);
 
         // Listen for animate update
         this.app.ticker.add(delta => {
@@ -301,6 +305,19 @@ export default class Game {
             this.bgsound.stop();
         }
 
+        // TODO: Stop game playing
+
+        const data = RestaurantManager.getInstance().generateReview();
+
+        this.showGameOverScreen(data);
+
+    }
+
+    showGameOverScreen(data) {
+        // TODO
+        console.log("Game over screen");
+        const gameOverScreen = new GameOverScreen(data);
+        this.app.stage.addChild(gameOverScreen.sprite);
     }
 
     initBg() {
