@@ -106,7 +106,10 @@ export default class Table {
         this.ingredientCard.addIngredient(ingredient);
         if (this.isComplete()) {
             this.timer.stop();
-            RestaurantManager.getInstance().setTableComplete(this.tableNumber);
+            this.customer.playHappyAnimation();
+
+            //Let the happy animation play for a bit
+            setTimeout(() => RestaurantManager.getInstance().setTableComplete(this.tableNumber), 2000)
         }
         else {
             this.timer.reset();
