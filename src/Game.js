@@ -251,7 +251,8 @@ export default class Game {
 
                 if (y > minY && y < maxY) {
                     // Hackrington Stanley
-                    setTimeout(() => {this.hitCount(table, ingredient)}, 175);
+                    const time = window.innerWidth * 0.15;
+                    setTimeout(() => {this.hitCount(table, ingredient)}, time);
                 }
             })
         } else {
