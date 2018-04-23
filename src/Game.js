@@ -299,7 +299,7 @@ export default class Game {
 
     isGameOver () {
         if(this.healthBar.isZeroHealth()) {
-            console.log("Game Over:");
+
             this.loseSound.play();
             this.bgsound.stop();
 
@@ -312,6 +312,7 @@ export default class Game {
             this.showGameOverScreen(data);
         }
     }
+
 
     showGameOverScreen(data) {
         console.log("Game over screen");

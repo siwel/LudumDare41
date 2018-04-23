@@ -1,15 +1,16 @@
 export default class GameOverScreen {
-    constructor({stars, c, f}) {
-        this.stars = stars;
-        this.completed = c;
-        this.failed = f;
+    constructor(data) {
+        console.log("stars" , data);
+        this.stars = data.stars;
+        this.completed = data.c;
+        this.failed = data.f;
 
         this.screen = new PIXI.Container();
 
         const rectangle = new PIXI.Graphics();
         rectangle.beginFill(0xFFFFFF);
         rectangle.lineStyle(5, 0x0000FF);
-        rectangle.drawRoundedRect(window.innerWidth * 0.25, window.innerHeight * 0.25, 500, 300, 20);
+        rectangle.drawRoundedRect(window.innerWidth * 0.25, window.innerHeight * 0.25, 500, 400, 20);
 
         this.screen.addChild(rectangle);
 
@@ -17,14 +18,22 @@ export default class GameOverScreen {
     }
 
     addText() {
+
+        var style = new PIXI.TextStyle({
+            fontFamily: 'Luckiest+Guy',
+            fontSize: 30
+
+        });
         const text = new PIXI.Text(`
         Final stats:
         ${this.completed} tables completed
         ${this.failed} tables failed
         Goggle Review: ${this.stars} stars
-        `);
+        `,style);
 
-        text.position = new PIXI.Point(400, 300);
+        text.fontFamily = "Luckiest+Guy";
+
+        text.position = new PIXI.Point(300, 300);
 
         this.screen.addChild(text);
     }
