@@ -3,6 +3,7 @@ import IngredientCardData from "../ingredientcard/IngredientCardData";
 import Game from "../../Game";
 import Recipes from "../../Recipes";
 import RestaurantManager from "./RestaurantManager";
+import Timer from "./Timer";
 
 
 /**
@@ -34,7 +35,7 @@ export default class Table {
          */
         const sectionHeight = this.app.screen.height / 3;
         this.location = {
-            x : this.app.screen.width,
+            x : this.app.screen.width - 10,
             y : sectionHeight * this.tableNumber + (sectionHeight/2)
         };
 
@@ -62,12 +63,20 @@ export default class Table {
         this.customer = new Customer(app, tableNumber, this.location);
 
 
+        /**
+         * @type {Timer}
+         */
+        this.timer = new Timer(this.location, tableNumber);
+
+
         this.ingredientCard = new IngredientCardData(this.recipe,  this.location, this.food );
         this.app.stage.addChild(this.ingredientCard.getPlate());
+        this.app.stage.addChild(this.timer.container);
 
     }
 
     destroy() {
+        this.timer.destory();
         this.customer.destroy();
         this.ingredientCard.destroy();
     }
@@ -96,7 +105,11 @@ export default class Table {
         this.ingredients.push(ingredient);
         this.ingredientCard.addIngredient(ingredient);
         if (this.isComplete()) {
+            this.timer.stop();
             RestaurantManager.getInstance().setTableComplete(this.tableNumber);
+        }
+        else {
+            this.timer.reset();
         }
         console.log(`CORRECT INGREDIENT ${ingredient}: OF ${this.recipe}`);
     }

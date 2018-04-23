@@ -72,7 +72,7 @@ export default class ConveyerBelt extends BaseSprite {
          requestAnimationFrame(()=>{
               if(!this.runAnimation) return;
             if( ingredient.x < window.innerWidth-10) {
-                ingredient.x +=2;
+                ingredient.x += 4;
                 ingredient.y = y;
 
                 this.animateIngredient(ingredient ,y, index)

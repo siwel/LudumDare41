@@ -21,6 +21,11 @@ export default class RestaurantManager {
          */
         this.tables = new Map();
 
+        /**
+         * @type Boolean
+         */
+        this.tableJustFinished = false;
+
         //TODO: Just for testing, need to add logic here.
         setInterval(() => this.newTable(), 30000);
         this.newTable();
@@ -65,10 +70,25 @@ export default class RestaurantManager {
     setTableComplete(tableNumber) {
         this.tables.get(tableNumber).destroy();
         this.tables.delete(tableNumber);
+        this.tableJustFinished = true;
+    }
+
+    setTableFailed(tableNumber){
+        //TODO: BAD SCORE?
+        this.tables.get(tableNumber).destroy();
+        this.tables.delete(tableNumber);
     }
 
     getAllTables () {
         return this.tables;
+    }
+
+    get hasJustFinishedTable() {
+        return this.tableJustFinished;
+    }
+
+    set hasJustFinishedTable(val) {
+        this.tableJustFinished = val;
     }
 
     static getInstance(app) {
