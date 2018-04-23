@@ -2,7 +2,7 @@ import BaseSprite from './BaseSprite';
 
 export default class Ingredient extends BaseSprite {
     constructor(type, width, height) {
-        const image = Ingredient.images[type] || Ingredient.images['onion'];
+        const image = Ingredient.images[type] || Ingredient.images['bunny'];
 
         super(image, width, height);
         this.type = type;
@@ -26,6 +26,7 @@ export default class Ingredient extends BaseSprite {
     
     static get images() {
         return {
+            'bunny': 'assets/bunny.png',
             'banana': 'assets/ingredients/banana.png',
             'bread': 'assets/ingredients/bread.png',
             'chicken': 'assets/ingredients/chicken.png',
