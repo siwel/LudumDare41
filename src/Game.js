@@ -251,7 +251,8 @@ export default class Game {
                 const minY = table.location.y - errorMargin;
 
                 if (y > minY && y < maxY) {
-                    this.hitCount(table, ingredient);
+                    // Hackrington Stanley
+                    setTimeout(() => {this.hitCount(table, ingredient)}, 175);
                 }
             })
         } else {
@@ -273,6 +274,8 @@ export default class Game {
                 this.hitCountDelay = false
             }, 1000)
         }
+
+        this.belt.clearLastHit();
     }
 
     missCount () {
