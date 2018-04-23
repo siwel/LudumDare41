@@ -43,6 +43,10 @@ export default class Game {
             src: ['assets/sounds/hit_pstve.flac']
         });
 
+
+        this.missCountdelay = false;
+        this.hitCountDelay = false;
+
     }
 
     init() {
@@ -119,10 +123,10 @@ export default class Game {
         });
         this.topBar.stage.addChild(logo);
 
-        const healthBar = new HealthBar(this.topBar.screen.width, this.topBar.screen.height / 2);
-        healthBar.sprite.x = this.topBar.screen.width / 2;
-        healthBar.sprite.y = this.topBar.screen.height / 2;
-        this.topBar.stage.addChild(healthBar.sprite);
+        this.healthBar = new HealthBar(this.topBar.screen.width, this.topBar.screen.height / 2);
+        this.healthBar.sprite.x = this.topBar.screen.width / 2;
+        this.healthBar.sprite.y = this.topBar.screen.height / 2;
+        this.topBar.stage.addChild(this.healthBar.sprite);
     }
 
     initBelt() {
@@ -213,6 +217,7 @@ export default class Game {
     hitDetected(y) {
 
         this.belt.setLastTypeHit(null);
+
         RestaurantManager.getInstance().getAllTables().forEach((table) => {
             var errorMargin = table.location.y * 30 / 100;
             var maxY = table.location.y + errorMargin;
@@ -222,13 +227,46 @@ export default class Game {
                 this.belt.registerHit(y);
                 const ingredient = this.belt.lastHit;
                 if (ingredient) {
-                    table.addIngredient(ingredient);
-                    console.log("HIT", table.location);
-                    this.hitSound.play();
+                    this.hitCount(table,ingredient);
+
+                } else {
+
+                    this.missCount();
                 }
+
+                this.isGameOver();
             }
         })
 
+    }
+
+    hitCount (table, ingredient ) {
+        table.addIngredient(ingredient);
+        this.hitSound.play();
+
+        if (this.hitCountDelay === false && this.missCountdelay === false ) {
+            this.hitCountDelay = true;
+            this.healthBar.addHealth();
+            setInterval(() => {
+                this.hitCountDelay = false
+            }, 1000)
+        }
+    }
+
+    missCount () {
+
+        if (this.missCountdelay === false && this.hitCountDelay === false) {
+            this.missCountdelay = true;
+            this.healthBar.removeHealth();
+            setInterval(() => {
+                this.missCountdelay = false
+            }, 1000)
+        }
+    }
+
+    isGameOver () {
+
+        return this.healthBar.isZeroHealth();
     }
 
     initBg() {
