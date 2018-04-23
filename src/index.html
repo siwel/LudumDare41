@@ -5,12 +5,35 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>LudumDare41</title>
-	<style>html, body { margin: 0; padding: 0; height: 100%; width: 100%;  overflow: hidden;}</style>
+	<style>
+		html, body { margin: 0; padding: 0; height: 100%; width: 100%;  overflow: hidden;}
+
+		#intro, #commands {
+			text-align: center;
+		}
+	</style>
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 
 	<link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
 </head>
 <body>
+	<div id="intro">
+		<div id="commands">			
+			<p>
+				Use <b>Arrow UP/Down</b> to move the cheff.
+			</p>
+			<p>
+				Use <b>Backspace</b> to shoot the ingredients.
+			</p>
+		</div>
+		<div>
+			<img src="assets/gamelogo.png" />
+		</div>
+		<div id="start">
+			<button id="start-btn">Start</button>
+		</div>
+
+	</div>
 	<div id="topBar"></div>
 	<div id="game"></div>
 </body>
