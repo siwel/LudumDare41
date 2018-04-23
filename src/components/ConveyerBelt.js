@@ -14,27 +14,29 @@ export default class ConveyerBelt extends BaseSprite {
 
         this.runAnimation = false
 
+        this.stopped = false;
     }
 
     animate(){
         const BELT_SPEED = 1.5;
         requestAnimationFrame(() => {
-            this.animate();
+            if (!this.stopped) {
+                this.animate();
 
 
-            this.position+= BELT_SPEED;
-            this.sprite.tilePosition.set(0, this.position);
+                this.position+= BELT_SPEED;
+                this.sprite.tilePosition.set(0, this.position);
 
-            this.ingredients.forEach((ingredient, index, arr) => {
-                ingredient.y+= BELT_SPEED;
+                this.ingredients.forEach((ingredient, index, arr) => {
+                    ingredient.y+= BELT_SPEED;
 
-                // ingredient.scale.x++;
-                if (ingredient.y >= this.height + ConveyerBelt.BUFFER) {
-                    ingredient.destroy();
-                    arr.shift();
-                }
-            });
-
+                    // ingredient.scale.x++;
+                    if (ingredient.y >= this.height + ConveyerBelt.BUFFER) {
+                        ingredient.destroy();
+                        arr.shift();
+                    }
+                })
+            }
         })
     }
 
@@ -92,6 +94,13 @@ export default class ConveyerBelt extends BaseSprite {
 
     clearLastHit() {
         this._lastHit = null;
+    }
+
+    kill() {
+        this.ingredients.forEach(ingredient => {
+            ingredient.destroy();
+        });
+        this.stopped = true;
     }
 
     get lastHit() {

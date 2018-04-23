@@ -110,10 +110,7 @@ export default class Game {
 
         // Listen for animate update
         this.app.ticker.add(delta => {
-            if (RestaurantManager.getInstance().hasJustFinishedTable) {
-                this.healthBar.addHealth();
-                RestaurantManager.getInstance().hasJustFinishedTable = false;
-            }
+            this.tickHealth();
         });
     }
 
@@ -305,7 +302,8 @@ export default class Game {
             this.bgsound.stop();
         }
 
-        // TODO: Stop game playing
+        this.belt.kill();
+        this.topBar.ticker.destroy();
 
         const data = RestaurantManager.getInstance().generateReview();
 
@@ -360,6 +358,13 @@ export default class Game {
         }
         const ingredientType = Recipes.ingredients[Math.floor(Math.random() * this.avaliableIngredients--)];
         return new Ingredient(ingredientType, width, height);
+    }
+
+    tickHealth() {
+        if (RestaurantManager.getInstance().hasJustFinishedTable) {
+            this.healthBar.addHealth();
+            RestaurantManager.getInstance().hasJustFinishedTable = false;
+        }
     }
 
 
