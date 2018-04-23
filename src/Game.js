@@ -59,9 +59,9 @@ export default class Game {
 
     init() {
         const loader = PIXI.loader;
-        loader.add('assets/characters/test.json');
         loader.add('assets/characters/chef/walk/animation.json');
         loader.add('assets/customer_sprite_happy/animation.json');
+        loader.add('assets/customer_sprite_unhappy/animation.json');
         loader.add('assets/customer_sprite_idle/animation.json');
 
 
@@ -107,15 +107,10 @@ export default class Game {
         // Initialise singleton
         RestaurantManager.getInstance(this.app);
 
-        // TODO: remove
-        document.addEventListener('click', this.showGameOverScreen);
-
         // Listen for animate update
         this.app.ticker.add(delta => {
-            if (RestaurantManager.getInstance().hasJustFinishedTable) {
-                this.healthBar.addHealth();
-                RestaurantManager.getInstance().hasJustFinishedTable = false;
-            }
+            this.tickHealth();
+            this.isGameOver();
         });
     }
 
@@ -276,9 +271,6 @@ export default class Game {
         } else {
             this.missCount();
         }
-
-        this.isGameOver();
-
     }
 
     hitCount (table, ingredient ) {
@@ -307,21 +299,22 @@ export default class Game {
 
     isGameOver () {
         if(this.healthBar.isZeroHealth()) {
-            console.log("Game Over:");
+
             this.loseSound.play();
             this.bgsound.stop();
+
+            this.belt.kill();
+            this.app.ticker.stop();
+            this.topBar.ticker.stop();
+
+            const data = RestaurantManager.getInstance().generateReview();
+
+            this.showGameOverScreen(data);
         }
-
-        // TODO: Stop game playing
-
-        const data = RestaurantManager.getInstance().generateReview();
-
-        this.showGameOverScreen(data);
-
     }
 
+
     showGameOverScreen(data) {
-        // TODO
         console.log("Game over screen");
         const gameOverScreen = new GameOverScreen(data);
         this.app.stage.addChild(gameOverScreen.sprite);
@@ -368,6 +361,13 @@ export default class Game {
         let index =  Math.floor(Math.random() * this.ingredient.length)
         const ingredientType = this.ingredient.splice(index,1);
         return new Ingredient(ingredientType, width, height);
+    }
+
+    tickHealth() {
+        if (RestaurantManager.getInstance().hasJustFinishedTable) {
+            this.healthBar.addHealth();
+            RestaurantManager.getInstance().hasJustFinishedTable = false;
+        }
     }
 
     availableIngredients (){

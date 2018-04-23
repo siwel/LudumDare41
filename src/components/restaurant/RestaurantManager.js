@@ -57,7 +57,8 @@ export default class RestaurantManager {
             return false;
         }
 
-        for(let i = 0; i < MAX_CUSTOMERS; i++){
+        // Excellent coding standards
+        for(let i of [1, 0, 2]){
             if(!this.tables.has(i)){
                 return i;
             }
