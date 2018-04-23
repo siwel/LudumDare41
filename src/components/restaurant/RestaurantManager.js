@@ -22,7 +22,7 @@ export default class RestaurantManager {
         this.tables = new Map();
 
         //TODO: Just for testing, need to add logic here.
-        setInterval(() => this.newTable(), 5000);
+        setInterval(() => this.newTable(), 30000);
         this.newTable();
 
     }
