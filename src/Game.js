@@ -201,7 +201,14 @@ export default class Game {
         this.app.stage.addChild(this.gun.magazineView.container);
         this.gun.magazineView.init();
 
-        this.simpleBulletHitCheck()
+        this.simpleBulletHitCheck();
+
+        this.screenTouched = false;
+
+
+        window.addEventListener('mouseup', ()=>{
+            this.gun.fire(this.gun.sprite.y)
+        })
 
     }
 
