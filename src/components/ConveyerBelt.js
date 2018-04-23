@@ -18,7 +18,7 @@ export default class ConveyerBelt extends BaseSprite {
     }
 
     animate(){
-        const BELT_SPEED = 1.5;
+        const BELT_SPEED = 2.5;
         requestAnimationFrame(() => {
             if (!this.stopped) {
                 this.animate();

@@ -173,8 +173,8 @@ export default class Game {
     }
 
     spawnIngredient() {
-        const spawnIngredientIntervalMIN = 800;
-        const spawnIngredientIntervalMAX = 1000;
+        const spawnIngredientIntervalMIN = 500;
+        const spawnIngredientIntervalMAX = 700;
 
         requestAnimationFrame(() => {
             const newIngredient = this.getNextIngredient(Game.ingredientSize, Game.ingredientSize);
