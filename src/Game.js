@@ -8,6 +8,7 @@ import Recipes from "./Recipes";
 import Keyboard from './components/Keyboard';
 import HealthBar from './components/HealthBar';
 import BaseSprite from "./components/BaseSprite";
+import {Howl} from "howler";
 
 // #GameJam - turn string e.g. '1234px' into just the value as a number
 const pxToNum = strValue => {
@@ -24,11 +25,24 @@ const pxToNum = strValue => {
 
 export default class Game {
 
-    constructor () {
+    constructor() {
         this.activeIngredients = [];
         this.belt = null;
         this.gun = null;
         this.ingredientsOnBelt = [];
+
+        this.fireSound = new Howl({
+            src: ['assets/sounds/main_game_music.flac'],
+            loop: true,
+            volume: 0.3,
+        });
+
+        this.fireSound.play();
+
+        this.hitSound = new Howl({
+            src: ['assets/sounds/hit_pstve.flac']
+        });
+
     }
 
     init() {
@@ -63,11 +77,11 @@ export default class Game {
     }
 
 
-	onLoad (loader, resources) {
+    onLoad(loader, resources) {
         const gameEl = document.getElementById('game');
         const style = window.getComputedStyle(gameEl);
 
-        this.app = new PIXI.Application(pxToNum(style.getPropertyValue('width')), pxToNum(style.getPropertyValue('height')), {backgroundColor : 0x1099bb});
+        this.app = new PIXI.Application(pxToNum(style.getPropertyValue('width')), pxToNum(style.getPropertyValue('height')), {backgroundColor: 0x1099bb});
         gameEl.appendChild(this.app.view);
 
         this.initTopBar();
@@ -97,7 +111,12 @@ export default class Game {
         this.topBar = new PIXI.Application(pxToNum(style.getPropertyValue('width')), pxToNum(style.getPropertyValue('height')), {backgroundColor: 0xFF0000})
         barEl.appendChild(this.topBar.view);
 
-        const logo = new PIXI.Text('Hangover Kitchen', { fontFamily : 'Wingdings', fontSize: 24, fill: 0x000000, align: 'center' });
+        const logo = new PIXI.Text('Hangover Kitchen', {
+            fontFamily: 'Wingdings',
+            fontSize: 24,
+            fill: 0x000000,
+            align: 'center'
+        });
         this.topBar.stage.addChild(logo);
 
         const healthBar = new HealthBar(this.topBar.screen.width, this.topBar.screen.height / 2);
@@ -126,7 +145,7 @@ export default class Game {
 
     }
 
-    spawnIngredient(){
+    spawnIngredient() {
         const spawnIngredientIntervalMIN = 800;
         const spawnIngredientIntervalMAX = 1000;
 
@@ -151,7 +170,7 @@ export default class Game {
     initGun() {
         this.gun = new Gun(this.app.screen.height / 2);
         this.app.stage.addChild(this.gun.sprite);
-        this.gun.bullettMagazine.forEach((bullet)=>{
+        this.gun.bullettMagazine.forEach((bullet) => {
             this.app.stage.addChild(bullet.sprite);
         });
 
@@ -162,19 +181,18 @@ export default class Game {
     simpleBulletHitCheck() {
         requestAnimationFrame(() => {
 
-            this.gun.bullettMagazine.forEach((bullet)=>{
+            this.gun.bullettMagazine.forEach((bullet) => {
 
-                if(bullet.isBulletMoving()){
-                    this.belt.getIngredient().forEach((itemOnBelt)=>{
+                if (bullet.isBulletMoving()) {
+                    this.belt.getIngredient().forEach((itemOnBelt) => {
 
                         const buffer = 35;
-                        const maxX = itemOnBelt.x+buffer;
-                        const minX = itemOnBelt.x-buffer;
+                        const maxX = itemOnBelt.x + buffer;
+                        const minX = itemOnBelt.x - buffer;
 
                         let bulletX = bullet.getX();
-                        if(bulletX > minX)
-                        {
-                            if(bullet.getX() < maxX || bullet.hasGonePastBelt === false){
+                        if (bulletX > minX) {
+                            if (bullet.getX() < maxX || bullet.hasGonePastBelt === false) {
                                 bullet.hasGonePastBelt = true;
                                 this.hitDetected(bullet.getY())
                             }
@@ -189,30 +207,29 @@ export default class Game {
 
     }
 
-    hitDetected(y){
+    hitDetected(y) {
 
-        this.belt.registerHit(y);
-        const ingredient = this.belt.lastHit;
-        if(ingredient)
-        {
-            this.belt.setLastTypeHit(null);
-            RestaurantManager.getInstance().getAllTables().forEach((table)=>{
-                var errorMargin = table.location.y *3/100;
-                var maxY = table.location.y + errorMargin;
-                var minY = table.location.y - errorMargin;
+        this.belt.setLastTypeHit(null);
+        RestaurantManager.getInstance().getAllTables().forEach((table) => {
+            var errorMargin = table.location.y * 30 / 100;
+            var maxY = table.location.y + errorMargin;
+            var minY = table.location.y - errorMargin;
 
-                if(y>minY && y<maxY){
+            if (y > minY && y < maxY) {
+                this.belt.registerHit(y);
+                const ingredient = this.belt.lastHit;
+                if (ingredient) {
                     table.addIngredient(ingredient);
-                    console.log(table.location)
+                    console.log("HIT", table.location);
+                    this.hitSound.play();
                 }
+            }
+        })
 
-            })
-
-        }
     }
 
-    initBg(){
-        const background = new BaseSprite('assets/background/background.png',this.app.screen.width, this.app.screen.height );
+    initBg() {
+        const background = new BaseSprite('assets/background/background.png', this.app.screen.width, this.app.screen.height);
         background.sprite.anchor.set(0);
         this.app.stage.addChild(background.sprite);
     }
@@ -233,11 +250,11 @@ export default class Game {
         keyFireGun.key.press = () => this.gun.fire(this.gun.sprite.y);
 
         this.app.ticker.add(delta => {
-            if(keyMoveGunUp.key.isDown){
+            if (keyMoveGunUp.key.isDown) {
                 keyMoveGunUp.key.press(delta);
 
             }
-            if(keyMoveGunDown.key.isDown){
+            if (keyMoveGunDown.key.isDown) {
                 keyMoveGunDown.key.press(delta);
 
             }
@@ -251,7 +268,7 @@ export default class Game {
     }
 
 
-    static get ingredientSize (){
+    static get ingredientSize() {
         return 60;
     }
 

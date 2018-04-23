@@ -57,8 +57,9 @@ export default class Gun{
 
 
       this.fireSound = new Howl({
-          src: ['assets/sounds/fire.mp3']
+          src: ['assets/sounds/blurp.flac']
       });
+
 
     }
 
