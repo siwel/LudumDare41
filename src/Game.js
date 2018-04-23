@@ -61,6 +61,8 @@ export default class Game {
         const loader = PIXI.loader;
         loader.add('assets/characters/test.json');
         loader.add('assets/characters/chef/walk/animation.json');
+        loader.add('assets/customer_sprite_happy/animation.json');
+        loader.add('assets/customer_sprite_idle/animation.json');
 
 
         //PRELOAD THE ingredients SO THEY DON'T POP IN ON THE BELT
