@@ -4,14 +4,15 @@ import BaseSprite from './BaseSprite';
 export default class HealthBar extends BaseSprite {
     constructor(width, height) {
         super('assets/background/barbg.png', width, height);
-        this.HEALTH = 1;
+        this.HEALTH = 100;
+        this.div = 100;
     }
 
     removeHealth() {
 
         if (this.HEALTH >= 0){
-            this.HEALTH -= 0.1;
-            this.sprite.scale.x = this.HEALTH;
+            this.HEALTH -= 10;
+            this.sprite.scale.x = this.HEALTH/100;
             console.log("REMOVE Health:", this.HEALTH);
         }
 
@@ -19,16 +20,16 @@ export default class HealthBar extends BaseSprite {
 
     addHealth() {
 
-        if (this.HEALTH <= 1) {
-            this.HEALTH += 0.1;
-            this.sprite.scale.x = this.HEALTH;
+        if (this.HEALTH <= 100) {
+            this.HEALTH += 10;
+            this.sprite.scale.x = this.HEALTH/100;
             console.log("ADD Health ", this.HEALTH);
         }
     }
 
     isZeroHealth() {
 
-        return this.HEALTH < 0.1;
+        return this.HEALTH <= 0;
     }
 
 

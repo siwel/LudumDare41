@@ -227,7 +227,6 @@ export default class Game {
         const ingredient = this.belt.lastHit;
 
         if(ingredient) {
-
             RestaurantManager.getInstance().getAllTables().forEach((table) => {
                 var errorMargin = table.location.y * 30 / 100;
                 var maxY = table.location.y + errorMargin;
@@ -243,10 +242,12 @@ export default class Game {
                         this.missCount();
                     }
 
-                    this.isGameOver();
                 }
             })
+        }else {
+            this.missCount();
         }
+        this.isGameOver();
 
     }
 
@@ -278,6 +279,7 @@ export default class Game {
         if(this.healthBar.isZeroHealth()) {
             console.log("Game Over:");
             this.loseSound.play();
+            this.bgsound.stop();
         }
 
     }
