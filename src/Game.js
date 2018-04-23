@@ -52,6 +52,8 @@ export default class Game {
         this.missCountdelay = false;
         this.hitCountDelay = false;
 
+
+        this.avaliableIngredients = Recipes.ingredients.length;
     }
 
     init() {
@@ -336,7 +338,10 @@ export default class Game {
     }
 
     getNextIngredient(width, height) {
-        const ingredientType = Recipes.ingredients[Math.floor(Math.random() * Recipes.ingredients.length)];
+        if(this.avaliableIngredients == 0){
+            this.avaliableIngredients = Recipes.ingredients.length;
+        }
+        const ingredientType = Recipes.ingredients[Math.floor(Math.random() * this.avaliableIngredients--)];
         return new Ingredient(ingredientType, width, height);
     }
 
