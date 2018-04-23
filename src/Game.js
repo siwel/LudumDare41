@@ -59,9 +59,9 @@ export default class Game {
 
     init() {
         const loader = PIXI.loader;
-        loader.add('assets/characters/test.json');
         loader.add('assets/characters/chef/walk/animation.json');
         loader.add('assets/customer_sprite_happy/animation.json');
+        loader.add('assets/customer_sprite_unhappy/animation.json');
         loader.add('assets/customer_sprite_idle/animation.json');
 
 
