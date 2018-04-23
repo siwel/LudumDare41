@@ -57,7 +57,7 @@ export default class Game {
         this.availableIngredients();
     }
 
-    init() {
+    init(onDone) {
         const loader = PIXI.loader;
         loader.add('assets/characters/chef/walk/animation.json');
         loader.add('assets/customer_sprite_happy/animation.json');
@@ -86,12 +86,13 @@ export default class Game {
         loader.add('assets/ingredients/fishMilkshake.png');
         loader.add('assets/ingredients/spiderCake.png');
 
-        loader.load((loader, resources) => this.onLoad(loader, resources));
-
+        loader.load((loader, resources) => onDone(loader, resources));
     }
 
 
-    onLoad(loader, resources) {
+
+
+    start(loader, resources) {
         const gameEl = document.getElementById('game');
         const style = window.getComputedStyle(gameEl);
 
