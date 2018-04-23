@@ -144,6 +144,9 @@ export default class Game {
         this.healthBar.sprite.x = logoWidth - healthOffset;
         this.topBar.stage.addChild(this.healthBar.sprite);
 
+        this.topBar.ticker.add(delta => {
+            this.healthBar.tickHealthDown();
+        })
 
         //ADD THE LOGO LAST SO ITS ON TOP
         this.topBar.stage.addChild(logo.sprite);
@@ -236,7 +239,7 @@ export default class Game {
 
     hitDetected(y) {
 
-        this.belt.setLastTypeHit(null);
+        //this.belt.setLastTypeHit(null);
         this.belt.registerHit(y);
 
 
@@ -276,7 +279,6 @@ export default class Game {
 
         if (this.missCountdelay === false && this.hitCountDelay === false) {
             this.missCountdelay = true;
-            this.healthBar.removeHealth();
             setInterval(() => {
                 this.missCountdelay = false
             }, 1000)
