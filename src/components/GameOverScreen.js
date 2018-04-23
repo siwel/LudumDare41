@@ -1,8 +1,8 @@
 export default class GameOverScreen {
-    constructor({stars, completed, failed}) {
+    constructor({stars, c, f}) {
         this.stars = stars;
-        this.completed = completed;
-        this.failed = failed;
+        this.completed = c;
+        this.failed = f;
 
         this.screen = new PIXI.Container();
 
