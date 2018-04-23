@@ -73,6 +73,12 @@ export default class RestaurantManager {
         this.tableJustFinished = true;
     }
 
+    setTableFailed(tableNumber){
+        //TODO: BAD SCORE?
+        this.tables.get(tableNumber).destroy();
+        this.tables.delete(tableNumber);
+    }
+
     getAllTables () {
         return this.tables;
     }
