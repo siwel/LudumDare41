@@ -54,7 +54,7 @@ export default class Game {
         this.hitCountDelay = false;
 
 
-        this.avaliableIngredients = Recipes.ingredients.length;
+        this.availableIngredients();
     }
 
     init() {
@@ -355,11 +355,16 @@ export default class Game {
     }
 
     getNextIngredient(width, height) {
-        if(this.avaliableIngredients == 0){
-            this.avaliableIngredients = Recipes.ingredients.length;
+        if(this.ingredient.length === 0 ){
+            this.availableIngredients();
         }
-        const ingredientType = Recipes.ingredients[Math.floor(Math.random() * this.avaliableIngredients--)];
+        let index =  Math.floor(Math.random() * this.ingredient.length)
+        const ingredientType = this.ingredient.splice(index,1);
         return new Ingredient(ingredientType, width, height);
+    }
+
+    availableIngredients (){
+        this.ingredient = Array.from(Recipes.ingredients)
     }
 
 
