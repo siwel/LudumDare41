@@ -4,25 +4,24 @@ import BaseSprite from './BaseSprite';
 export default class HealthBar extends BaseSprite {
     constructor(image,width, height) {
         super(image, width, height);
-        this.HEALTH = 100;
-        this.div = 100;
+        this.HEALTH = HealthBar.MAX_HEALTH;
+        this.sprite.scale.x = 1;
     }
 
-    removeHealth() {
+    tickHealthDown() {
 
         if (this.HEALTH >= 0){
-            this.HEALTH -= 10;
-            this.sprite.scale.x = this.HEALTH/100;
-            console.log("REMOVE Health:", this.HEALTH);
+            this.HEALTH -= 1;
+            this.sprite.scale.x = this.HEALTH/HealthBar.MAX_HEALTH;
         }
 
     }
 
     addHealth() {
 
-        if (this.HEALTH <= 100) {
+        if (this.HEALTH <= HealthBar.MAX_HEALTH) {
             this.HEALTH += 10;
-            this.sprite.scale.x = this.HEALTH/100;
+            this.sprite.scale.x = this.HEALTH/HealthBar.MAX_HEALTH;
             console.log("ADD Health ", this.HEALTH);
         }
     }
@@ -32,5 +31,8 @@ export default class HealthBar extends BaseSprite {
         return this.HEALTH <= 0;
     }
 
+    static get MAX_HEALTH() {
+        return 5000;
+    }
 
 }
