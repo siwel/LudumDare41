@@ -52,6 +52,7 @@ export default class Game {
     init() {
         const loader = PIXI.loader;
         loader.add('assets/characters/test.json');
+        loader.add('assets/characters/chef/walk/animation.json');
 
 
         //PRELOAD THE ingredients SO THEY DON'T POP IN ON THE BELT
@@ -176,6 +177,9 @@ export default class Game {
         this.gun.bullettMagazine.forEach((bullet) => {
             this.app.stage.addChild(bullet.sprite);
         });
+
+        this.app.stage.addChild(this.gun.magazineView.container);
+        this.gun.magazineView.init();
 
         this.simpleBulletHitCheck()
 

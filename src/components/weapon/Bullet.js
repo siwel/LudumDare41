@@ -9,11 +9,15 @@ export default class Bullet extends BaseSprite {
         this._hasGonePastBelt = false;
     }
 
+    setStartingX(){
+        this.sprite.x = 85;
+    }
+
     moveBullet(yAxis) {
 
         if(yAxis)
         {
-            this.sprite.y = yAxis;
+            this.sprite.y = yAxis + 13;
         }
 
         this.isMoving = true;
