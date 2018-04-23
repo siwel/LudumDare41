@@ -12,6 +12,8 @@ export default class ConveyerBelt extends BaseSprite {
 
         this.position = 0;
 
+        this.runAnimation = false
+
     }
 
     animate(){
@@ -55,11 +57,34 @@ export default class ConveyerBelt extends BaseSprite {
             const yDiff = this.ingredients[i].y - y;
             if (Math.abs(yDiff) < this.hitBuffer) {
                 this.setLastTypeHit(this.ingredients[i].type);
-                this.ingredients[i].destroy();
-                this.ingredients.splice(i, 1);
+                this.runAnimation =true;
+                this.animateIngredient(this.ingredients[i]["pixiSprite"], y,i );
+
                 break;
             }
         }
+    }
+
+    animateIngredient(ingredient , y, index) {
+
+        if(!this.runAnimation) return;
+
+         requestAnimationFrame(()=>{
+              if(!this.runAnimation) return;
+            if( ingredient.x < window.innerWidth-10) {
+                ingredient.x +=2;
+                ingredient.y = y;
+                ingredient.alpha-=0.005;
+
+                this.animateIngredient(ingredient ,y, index)
+            }else {
+                    this.ingredients[index].destroy();
+                    this.ingredients.splice(index, 1);
+                    this.runAnimation = false;
+            }
+        });
+
+
     }
 
     setLastTypeHit(type) {
