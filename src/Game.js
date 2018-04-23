@@ -165,8 +165,7 @@ export default class Game {
 
         this.belt.animate();
 
-        //TODO: Just for debugging
-        this.belt.sprite.on('mousedown', event => this.hitDetected(event.data.global.y));
+        // this.belt.sprite.on('mousedown', event => this.hitDetected(event.data.global.y));
 
         this.spawnIngredient();
 
