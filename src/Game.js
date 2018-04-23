@@ -304,7 +304,8 @@ export default class Game {
             this.bgsound.stop();
 
             this.belt.kill();
-            this.topBar.ticker.destroy();
+            this.app.ticker.stop();
+            this.topBar.ticker.stop();
 
             const data = RestaurantManager.getInstance().generateReview();
 
