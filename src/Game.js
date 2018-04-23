@@ -174,6 +174,9 @@ export default class Game {
             this.app.stage.addChild(bullet.sprite);
         });
 
+        this.app.stage.addChild(this.gun.magazineView.container);
+        this.gun.magazineView.init();
+
         this.simpleBulletHitCheck()
 
     }

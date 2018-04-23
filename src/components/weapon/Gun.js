@@ -2,6 +2,7 @@ import BaseSprite from '../BaseSprite';
 import Bullet from './Bullet';
 import {Howl} from 'howler';
 import * as PIXI from "pixi.js";
+import Magazine from "./Magazine";
 
 export default class Gun{
 
@@ -60,6 +61,8 @@ export default class Gun{
           src: ['assets/sounds/blurp.flac']
       });
 
+      this.magazineView = new Magazine(this.MAX_BULLET);
+
 
     }
 
@@ -76,18 +79,27 @@ export default class Gun{
 
     fire (yAxis) {
 
+      if(this.firedBullet >= this.MAX_BULLET){
+          console.log("STILL RELOADING");
+          return;
+      }
+
       if(this.firedBullet < this.MAX_BULLET) {
           const bullet = this.bullettMagazine[this.firedBullet];
           bullet.setStartingX();
-          bullet.moveBullet(yAxis , this.firedBullet);
+          bullet.moveBullet(yAxis, this.firedBullet);
           this.fireSound.play();
           this.firedBullet++;
+          this.magazineView.setRemainingBullets(this.MAX_BULLET - this.firedBullet);
 
-      }else {
-          setTimeout(()=>{
-              this.firedBullet = 0;
-          }, 3000);
-
+          //AUTO RELOAD
+          const RELOAD_DURATION = 1000;
+          if (this.firedBullet >= this.MAX_BULLET) {
+              setTimeout(() => {
+                  this.firedBullet = 0;
+                  this.magazineView.setRemainingBullets(this.MAX_BULLET);
+              }, RELOAD_DURATION);
+          }
       }
     }
 
