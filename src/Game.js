@@ -218,6 +218,11 @@ export default class Game {
             this.gun.fire(this.gun.sprite.y)
         })
 
+        //For touch too
+        window.addEventListener('touchend', ()=>{
+            this.gun.fire(this.gun.sprite.y)
+        })
+
     }
 
     simpleBulletHitCheck() {
