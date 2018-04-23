@@ -31,17 +31,23 @@ export default class Game {
         this.gun = null;
         this.ingredientsOnBelt = [];
 
-        this.fireSound = new Howl({
+        this.bgsound = new Howl({
             src: ['assets/sounds/main_game_music.flac'],
             loop: true,
             volume: 0.3,
         });
 
-        this.fireSound.play();
+        this.bgsound.play();
 
         this.hitSound = new Howl({
             src: ['assets/sounds/hit_pstve.flac']
         });
+
+        this.loseSound = new Howl({
+            src: ['assets/sounds/losing_theme.flac']
+        });
+
+
 
 
         this.missCountdelay = false;
@@ -217,26 +223,30 @@ export default class Game {
     hitDetected(y) {
 
         this.belt.setLastTypeHit(null);
+        this.belt.registerHit(y);
+        const ingredient = this.belt.lastHit;
 
-        RestaurantManager.getInstance().getAllTables().forEach((table) => {
-            var errorMargin = table.location.y * 30 / 100;
-            var maxY = table.location.y + errorMargin;
-            var minY = table.location.y - errorMargin;
+        if(ingredient) {
 
-            if (y > minY && y < maxY) {
-                this.belt.registerHit(y);
-                const ingredient = this.belt.lastHit;
-                if (ingredient) {
-                    this.hitCount(table,ingredient);
+            RestaurantManager.getInstance().getAllTables().forEach((table) => {
+                var errorMargin = table.location.y * 30 / 100;
+                var maxY = table.location.y + errorMargin;
+                var minY = table.location.y - errorMargin;
 
-                } else {
+                if (y > minY && y < maxY) {
 
-                    this.missCount();
+                    if (ingredient) {
+                        this.hitCount(table, ingredient);
+
+                    } else {
+
+                        this.missCount();
+                    }
+
+                    this.isGameOver();
                 }
-
-                this.isGameOver();
-            }
-        })
+            })
+        }
 
     }
 
@@ -265,8 +275,11 @@ export default class Game {
     }
 
     isGameOver () {
+        if(this.healthBar.isZeroHealth()) {
+            console.log("Game Over:");
+            this.loseSound.play();
+        }
 
-        return this.healthBar.isZeroHealth();
     }
 
     initBg() {
