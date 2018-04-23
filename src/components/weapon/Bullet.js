@@ -3,7 +3,7 @@ import BaseSprite from "../BaseSprite";
 export default class Bullet extends BaseSprite {
     constructor ()
     {
-        super('assets/bunny.png', 10, 10);
+        super('assets/characters/potatobullet.png', 19, 11);
         this.sprite.x = -10;
         this.isMoving =false;
         this._hasGonePastBelt = false;
