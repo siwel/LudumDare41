@@ -1,4 +1,3 @@
-import Plate from "./Plate";
 import Customer from "./Customer";
 import IngredientCardData from "../ingredientcard/IngredientCardData";
 import Game from "../../Game";
@@ -56,10 +55,6 @@ export default class Table {
          */
         this.ingredients = [];
 
-        /**
-         * @type {Plate}
-         */
-        this.plate = new Plate(30,30,this.location);
 
         /**
          * @type {Customer}
@@ -69,12 +64,10 @@ export default class Table {
 
         this.ingredientCard = new IngredientCardData(this.recipe,  this.location, this.food );
         this.app.stage.addChild(this.ingredientCard.getPlate());
-        this.app.stage.addChild(this.plate.sprite)
 
     }
 
     destroy() {
-        this.plate.destroy();
         this.customer.destroy();
         this.ingredientCard.destroy();
     }
@@ -82,7 +75,7 @@ export default class Table {
 
     _onBadIngredient(ingredient){
         this.customer.playDizzyAnimation();
-        //TODO: INFORM PLATE, CARD
+        //TODO: INFORM CARD
     }
 
     addIngredient(ingredient){
@@ -102,7 +95,6 @@ export default class Table {
 
         this.ingredients.push(ingredient);
         this.ingredientCard.addIngredient(ingredient);
-        this.plate.updatePlate(ingredient);
         if (this.isComplete()) {
             RestaurantManager.getInstance().setTableComplete(this.tableNumber);
         }
