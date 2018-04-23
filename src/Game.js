@@ -107,12 +107,10 @@ export default class Game {
         // Initialise singleton
         RestaurantManager.getInstance(this.app);
 
-        // TODO: remove
-        document.addEventListener('click', this.showGameOverScreen);
-
         // Listen for animate update
         this.app.ticker.add(delta => {
             this.tickHealth();
+            this.isGameOver();
         });
     }
 
@@ -273,9 +271,6 @@ export default class Game {
         } else {
             this.missCount();
         }
-
-        this.isGameOver();
-
     }
 
     hitCount (table, ingredient ) {
@@ -307,19 +302,18 @@ export default class Game {
 
             this.loseSound.play();
             this.bgsound.stop();
+
             this.belt.kill();
             this.topBar.ticker.destroy();
 
             const data = RestaurantManager.getInstance().generateReview();
+
             this.showGameOverScreen(data);
-
         }
-
-
     }
 
+
     showGameOverScreen(data) {
-        // TODO
         console.log("Game over screen");
         const gameOverScreen = new GameOverScreen(data);
         this.app.stage.addChild(gameOverScreen.sprite);
