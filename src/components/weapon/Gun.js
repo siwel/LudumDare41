@@ -1,14 +1,35 @@
 import BaseSprite from '../BaseSprite';
 import Bullet from './Bullet';
 import {Howl} from 'howler';
+import * as PIXI from "pixi.js";
 
-export default class Gun extends BaseSprite{
+export default class Gun{
 
   constructor(positionY) {
-        super('assets/bunny.png', 50, 50);
 
-        this.sprite.x = 10;
-        this.sprite.y = positionY;
+
+      var frames = [];
+      for (var i = 0; i < 22; i++) {
+          var val = i < 10 ? '0' + i : i;
+
+          // magically works since the spritesheet was loaded with the pixi loader
+          frames.push(PIXI.Texture.fromFrame('chefwalkcycle'+val+'.png'));
+      }
+
+
+      this._sprite = new PIXI.extras.AnimatedSprite(frames);
+
+      this._sprite.anchor.set(0.5)
+      this._sprite.scale.x = -1;
+
+
+      this.moveTimer = 0;
+      // this._sprite.x = 100;
+      // this._sprite.y = 100;
+
+
+        this._sprite.x = 50;
+        this._sprite.y = positionY;
 
         this.MAX_BULLET = 10;
 
@@ -16,17 +37,17 @@ export default class Gun extends BaseSprite{
 
         this.bullettMagazine = [];
 
-        this.sprite.rotation = Math.PI * 2 * 0.25;
+        // this._sprite.rotation = Math.PI * 2 * 0.25;
 
         // Opt-in to interactivity
-        this.sprite.interactive = true;
+        this._sprite.interactive = true;
 
         // Shows hand cursor
-        this.sprite.buttonMode = true;
+        this._sprite.buttonMode = true;
 
         // setup events for mouse + touch using
         // the pointer events
-        this.sprite
+        this._sprite
             .on('pointerdown', this.onDragStart)
             .on('pointerup', this.onDragEnd)
             .on('pointerupoutside', this.onDragEnd)
@@ -41,6 +62,10 @@ export default class Gun extends BaseSprite{
 
     }
 
+    get sprite() {
+        return this._sprite;
+    }
+
     addBullet() {
 
       for(var index = 0; index < this.MAX_BULLET ; index++) {
@@ -51,7 +76,9 @@ export default class Gun extends BaseSprite{
     fire (yAxis) {
 
       if(this.firedBullet < this.MAX_BULLET) {
-          this.bullettMagazine[this.firedBullet].moveBullet(yAxis ,this.firedBullet);
+          const bullet = this.bullettMagazine[this.firedBullet];
+          bullet.setStartingX();
+          bullet.moveBullet(yAxis , this.firedBullet);
           this.fireSound.play();
           this.firedBullet++;
 
@@ -86,10 +113,34 @@ export default class Gun extends BaseSprite{
         }
     }
 
+    playLoop(){
+      requestAnimationFrame(() => {
+          this.moveTimer++;
+
+          const FRAMES_TO_WAIT_BEFORE_STOPPING_ANIMATION = 5;
+          if(this.moveTimer > FRAMES_TO_WAIT_BEFORE_STOPPING_ANIMATION){
+              this._sprite.stop();
+              this.moveTimer = 0;
+          }
+          else
+          {
+              this.playLoop()
+          }
+      })
+    }
+
     moveYAxis(newPosition) {
-       const height = window.document.getElementById('game').offsetHeight;
+
+      if(this.moveTimer === 0){
+         this.playLoop();
+      }
+
+        this.moveTimer = 0;
+        this._sprite.play();
+
+        const height = window.document.getElementById('game').offsetHeight;
        if (newPosition > 30 && newPosition < height-30) {
-           this.sprite.y = newPosition;
+           this._sprite.y = newPosition;
        }
     }
 }
