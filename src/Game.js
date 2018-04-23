@@ -59,9 +59,9 @@ export default class Game {
 
     init() {
         const loader = PIXI.loader;
-        loader.add('assets/characters/test.json');
         loader.add('assets/characters/chef/walk/animation.json');
         loader.add('assets/customer_sprite_happy/animation.json');
+        loader.add('assets/customer_sprite_unhappy/animation.json');
         loader.add('assets/customer_sprite_idle/animation.json');
 
 
@@ -304,7 +304,8 @@ export default class Game {
             this.bgsound.stop();
 
             this.belt.kill();
-            this.topBar.ticker.destroy();
+            this.app.ticker.stop();
+            this.topBar.ticker.stop();
 
             const data = RestaurantManager.getInstance().generateReview();
 
