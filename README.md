@@ -13,3 +13,5 @@ npm start
 ```
 
 and the game is available at http://localhost:8080.
+
+Demo : http://vibrant-murdock-3dc5dd.netlify.com
