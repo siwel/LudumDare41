@@ -117,37 +117,36 @@ export default class Game {
         const barEl = document.getElementById('topBar');
         const style = window.getComputedStyle(barEl);
 
-        this.topBar = new PIXI.Application(pxToNum(style.getPropertyValue('width')), pxToNum(style.getPropertyValue('height'))*2, {backgroundColor: 0xFF0000})
+        const barWidth = pxToNum(style.getPropertyValue('width'));
+        const barHeight = pxToNum(style.getPropertyValue('height'));
+        this.topBar = new PIXI.Application(barWidth, barHeight, {backgroundColor: 0xFFFFFF})
         barEl.appendChild(this.topBar.view);
 
-        const logo = new PIXI.Text('Hangover Kitchen', {
-            fontFamily: 'Luckiest+Guy',
-            fontSize: 36,
-            fontStyle: 'italic',
-            fontWeight: 'bold',
-            fill: ['#ffffff', '#c3ffdf'], // gradient
-            stroke: '#14504e',
-            strokeThickness: 5,
-            dropShadow: true,
-            dropShadowColor: '#000000',
-            dropShadowBlur: 4,
-            dropShadowAngle: Math.PI,
-            dropShadowDistance: 6,
-            wordWrap: true,
-            wordWrapWidth: 440
-        });
-        this.topBar.stage.addChild(logo);
 
-        this.healthBarBG = new HealthBar('assets/background/bar.png',this.topBar.screen.width, this.topBar.screen.height *0.3);
-        this.healthBar = new HealthBar('assets/background/barbg.png',this.topBar.screen.width, this.topBar.screen.height *0.3);
-        this.healthBar.sprite.x = this.topBar.screen.width / 2;
-        this.healthBar.sprite.y = this.topBar.screen.height / 2;
+        const logo = new BaseSprite('assets/background/ingamelogo.png', 160, 62);
+        const logoHeight = barHeight *1.2;
+        const logoWidth = logoHeight * 2.58;
+        logo.sprite.height = barHeight * 1.2;
+        logo.sprite.width = logoWidth;
+        logo.sprite.y = barHeight / 2;
+        logo.sprite.x = -10;
+        logo.sprite.anchor.set(0, .5);
 
-        this.healthBarBG.sprite.x = this.topBar.screen.width / 2;
-        this.healthBarBG.sprite.y = this.topBar.screen.height / 2;
 
+        this.healthBarBG = new HealthBar('assets/background/bar.png',barWidth, barHeight);
+        this.healthBarBG.sprite.anchor.set(0);
         this.topBar.stage.addChild(this.healthBarBG.sprite);
+
+        const healthOffset = 40;
+        const healthWidth = barWidth - logoWidth + healthOffset;
+        this.healthBar = new HealthBar('assets/background/barbg.png',healthWidth, barHeight);
+        this.healthBar.sprite.anchor.set(0);
+        this.healthBar.sprite.x = logoWidth - healthOffset;
         this.topBar.stage.addChild(this.healthBar.sprite);
+
+
+        //ADD THE LOGO LAST SO ITS ON TOP
+        this.topBar.stage.addChild(logo.sprite);
     }
 
     initBelt() {
