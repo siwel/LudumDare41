@@ -104,12 +104,10 @@ export default class Game {
 
         // Listen for animate update
         this.app.ticker.add(delta => {
-            // just for fun, let's rotate mr rabbit a little
-            // delta is 1 if running at 100% performance
-            // creates frame-independent transformation
-            // belt.rotation += 0.1 * delta;
-
-
+            if (RestaurantManager.getInstance().hasJustFinishedTable) {
+                this.healthBar.addHealth();
+                RestaurantManager.getInstance().hasJustFinishedTable = false;
+            }
         });
     }
 
@@ -269,7 +267,6 @@ export default class Game {
 
         if (this.hitCountDelay === false && this.missCountdelay === false ) {
             this.hitCountDelay = true;
-            this.healthBar.addHealth();
             setInterval(() => {
                 this.hitCountDelay = false
             }, 1000)
