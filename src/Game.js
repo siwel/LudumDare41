@@ -304,17 +304,17 @@ export default class Game {
 
     isGameOver () {
         if(this.healthBar.isZeroHealth()) {
-            console.log("Game Over:");
+
             this.loseSound.play();
             this.bgsound.stop();
+            this.belt.kill();
+            this.topBar.ticker.destroy();
+
+            const data = RestaurantManager.getInstance().generateReview();
+            this.showGameOverScreen(data);
+
         }
 
-        this.belt.kill();
-        this.topBar.ticker.destroy();
-
-        const data = RestaurantManager.getInstance().generateReview();
-
-        this.showGameOverScreen(data);
 
     }
 

@@ -1,8 +1,9 @@
 export default class GameOverScreen {
-    constructor({stars, completed, failed}) {
-        this.stars = stars;
-        this.completed = completed;
-        this.failed = failed;
+    constructor(data) {
+        console.log("stars" , data);
+        this.stars = data.stars;
+        this.completed = data.c;
+        this.failed = data.f;
 
         this.screen = new PIXI.Container();
 
@@ -23,6 +24,8 @@ export default class GameOverScreen {
         ${this.failed} tables failed
         Goggle Review: ${this.stars} stars
         `);
+
+        text.fontFamily = "Luckiest+Guy";
 
         text.position = new PIXI.Point(400, 300);
 
