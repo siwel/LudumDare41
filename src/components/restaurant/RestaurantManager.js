@@ -32,7 +32,7 @@ export default class RestaurantManager {
         };
 
         //TODO: Just for testing, need to add logic here.
-        setInterval(() => this.newTable(), 30000);
+        setInterval(() => this.newTable(), 10000);
         this.newTable();
 
     }
