@@ -165,8 +165,7 @@ export default class Game {
 
         this.belt.animate();
 
-        //TODO: Just for debugging
-        this.belt.sprite.on('mousedown', event => this.hitDetected(event.data.global.y));
+        // this.belt.sprite.on('mousedown', event => this.hitDetected(event.data.global.y));
 
         this.spawnIngredient();
 
@@ -251,7 +250,8 @@ export default class Game {
                 const minY = table.location.y - errorMargin;
 
                 if (y > minY && y < maxY) {
-                    this.hitCount(table, ingredient);
+                    // Hackrington Stanley
+                    setTimeout(() => {this.hitCount(table, ingredient)}, 175);
                 }
             })
         } else {
@@ -273,6 +273,8 @@ export default class Game {
                 this.hitCountDelay = false
             }, 1000)
         }
+
+        this.belt.clearLastHit();
     }
 
     missCount () {

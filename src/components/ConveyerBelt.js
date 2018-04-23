@@ -74,7 +74,6 @@ export default class ConveyerBelt extends BaseSprite {
             if( ingredient.x < window.innerWidth-10) {
                 ingredient.x +=2;
                 ingredient.y = y;
-                ingredient.alpha-=0.005;
 
                 this.animateIngredient(ingredient ,y, index)
             }else {
@@ -89,6 +88,10 @@ export default class ConveyerBelt extends BaseSprite {
 
     setLastTypeHit(type) {
         this._lastHit = type;
+    }
+
+    clearLastHit() {
+        this._lastHit = null;
     }
 
     get lastHit() {
