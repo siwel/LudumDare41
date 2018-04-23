@@ -1,8 +1,7 @@
 import BaseSprite from './BaseSprite';
 
-// TODO implement
 export default class HealthBar extends BaseSprite {
-    constructor(image,width, height) {
+    constructor(image, width, height) {
         super(image, width, height);
         this.HEALTH = HealthBar.MAX_HEALTH;
         this.sprite.scale.x = 1;
@@ -20,7 +19,11 @@ export default class HealthBar extends BaseSprite {
     addHealth() {
 
         if (this.HEALTH <= HealthBar.MAX_HEALTH) {
-            this.HEALTH += 10;
+            this.HEALTH += 800;
+            
+            if (this.HEALTH > HealthBar.MAX_HEALTH) {
+                this.HEALTH = HealthBar.MAX_HEALTH;
+            }
             this.sprite.scale.x = this.HEALTH/HealthBar.MAX_HEALTH;
             console.log("ADD Health ", this.HEALTH);
         }
@@ -32,7 +35,7 @@ export default class HealthBar extends BaseSprite {
     }
 
     static get MAX_HEALTH() {
-        return 5000;
+        return 4000;
     }
 
 }
