@@ -2,8 +2,8 @@ import BaseSprite from './BaseSprite';
 
 // TODO implement
 export default class HealthBar extends BaseSprite {
-    constructor(width, height) {
-        super('assets/background/barbg.png', width, height);
+    constructor(image,width, height) {
+        super(image, width, height);
         this.HEALTH = 100;
         this.div = 100;
     }

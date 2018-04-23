@@ -117,20 +117,36 @@ export default class Game {
         const barEl = document.getElementById('topBar');
         const style = window.getComputedStyle(barEl);
 
-        this.topBar = new PIXI.Application(pxToNum(style.getPropertyValue('width')), pxToNum(style.getPropertyValue('height')), {backgroundColor: 0xFF0000})
+        this.topBar = new PIXI.Application(pxToNum(style.getPropertyValue('width')), pxToNum(style.getPropertyValue('height'))*2, {backgroundColor: 0xFF0000})
         barEl.appendChild(this.topBar.view);
 
         const logo = new PIXI.Text('Hangover Kitchen', {
-            fontFamily: 'Wingdings',
-            fontSize: 24,
-            fill: 0x000000,
-            align: 'center'
+            fontFamily: 'Luckiest+Guy',
+            fontSize: 36,
+            fontStyle: 'italic',
+            fontWeight: 'bold',
+            fill: ['#ffffff', '#c3ffdf'], // gradient
+            stroke: '#14504e',
+            strokeThickness: 5,
+            dropShadow: true,
+            dropShadowColor: '#000000',
+            dropShadowBlur: 4,
+            dropShadowAngle: Math.PI,
+            dropShadowDistance: 6,
+            wordWrap: true,
+            wordWrapWidth: 440
         });
         this.topBar.stage.addChild(logo);
 
-        this.healthBar = new HealthBar(this.topBar.screen.width, this.topBar.screen.height / 2);
+        this.healthBarBG = new HealthBar('assets/background/bar.png',this.topBar.screen.width, this.topBar.screen.height *0.3);
+        this.healthBar = new HealthBar('assets/background/barbg.png',this.topBar.screen.width, this.topBar.screen.height *0.3);
         this.healthBar.sprite.x = this.topBar.screen.width / 2;
         this.healthBar.sprite.y = this.topBar.screen.height / 2;
+
+        this.healthBarBG.sprite.x = this.topBar.screen.width / 2;
+        this.healthBarBG.sprite.y = this.topBar.screen.height / 2;
+
+        this.topBar.stage.addChild(this.healthBarBG.sprite);
         this.topBar.stage.addChild(this.healthBar.sprite);
     }
 
