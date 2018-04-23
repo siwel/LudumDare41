@@ -4,7 +4,7 @@ export default class Recipes {
      * @returns {string[]}
      */
     static get ingredients() {
-        return ['banana', 'bread', 'chicken', 'chocolate', 'egg', 'fish', 'milk', 'porridge', 'rice', 'sauce', 'spider', 'sugar'];
+        return ['banana', 'bread', 'chicken', 'chocolate', 'egg', 'eye', 'fish', 'milk', 'porridge', 'rice', 'sauce', 'spider', 'sugar'];
     }
 
     static get food () {
@@ -18,7 +18,7 @@ export default class Recipes {
 
         return {
             "Chicken Cotton Candy": [Recipes.ingredients[2], Recipes.ingredients[10], Recipes.ingredients[12]],
-            "Fish  Milkshake": [Recipes.ingredients[5], Recipes.ingredients[6], Recipes.ingredients[7]],
+            "Fish  Milkshake": [Recipes.ingredients[4], Recipes.ingredients[6], Recipes.ingredients[7]],
             "Chocolate Risotto": [Recipes.ingredients[3], Recipes.ingredients[9]],
             "Cow eyes porridge": [Recipes.ingredients[8], Recipes.ingredients[5]],
             "Banana Hotdog": [Recipes.ingredients[1], Recipes.ingredients[0]],
