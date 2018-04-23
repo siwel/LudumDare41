@@ -93,7 +93,11 @@ export default class RestaurantManager {
             : (f === 0) ? 5
             : Math.floor((c / (c + f)) * 10) / 2;
 
-            return stars;
+            return ({
+                stars,
+                c,
+                f,
+            });
     }
 
     getAllTables () {

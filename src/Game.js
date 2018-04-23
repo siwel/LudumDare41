@@ -7,6 +7,7 @@ import Recipes from "./Recipes";
 import Keyboard from './components/Keyboard';
 import HealthBar from './components/HealthBar';
 import BaseSprite from "./components/BaseSprite";
+import GameOverScreen from './components/GameOverScreen';
 import {Howl} from "howler";
 
 // #GameJam - turn string e.g. '1234px' into just the value as a number
@@ -101,6 +102,9 @@ export default class Game {
 
         // Initialise singleton
         RestaurantManager.getInstance(this.app);
+
+        // TODO: remove
+        document.addEventListener('click', this.showGameOverScreen);
 
         // Listen for animate update
         this.app.ticker.add(delta => {
@@ -301,14 +305,17 @@ export default class Game {
 
         // TODO: Stop game playing
 
-        const stars = RestaurantManager.getInstance().generateReview();
+        const data = RestaurantManager.getInstance().generateReview();
 
-        this.showGameOverScreen(stars);
+        this.showGameOverScreen(data);
 
     }
 
-    showGameOverScreen(stars) {
+    showGameOverScreen(data) {
         // TODO
+        console.log("Game over screen");
+        const gameOverScreen = new GameOverScreen(data);
+        this.app.stage.addChild(gameOverScreen.sprite);
     }
 
     initBg() {
