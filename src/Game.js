@@ -2,7 +2,6 @@ import * as PIXI from 'pixi.js';
 import ConveyerBelt from './components/ConveyerBelt';
 import Ingredient from './components/Ingredient';
 import Gun from './components/weapon/Gun';
-import IngredientCardData from "./components/ingredientcard/IngredientCardData";
 import RestaurantManager from "./components/restaurant/RestaurantManager";
 import Recipes from "./Recipes";
 import Keyboard from './components/Keyboard';
@@ -224,29 +223,23 @@ export default class Game {
 
         this.belt.setLastTypeHit(null);
         this.belt.registerHit(y);
-        const ingredient = this.belt.lastHit;
 
-        if(ingredient) {
+
+        let ingredient = this.belt.lastHit;
+        if (ingredient) {
             RestaurantManager.getInstance().getAllTables().forEach((table) => {
-                var errorMargin = table.location.y * 30 / 100;
-                var maxY = table.location.y + errorMargin;
-                var minY = table.location.y - errorMargin;
+                const errorMargin = table.location.y * 33 / 100;
+                const maxY = table.location.y + errorMargin;
+                const minY = table.location.y - errorMargin;
 
                 if (y > minY && y < maxY) {
-
-                    if (ingredient) {
-                        this.hitCount(table, ingredient);
-
-                    } else {
-
-                        this.missCount();
-                    }
-
+                    this.hitCount(table, ingredient);
                 }
             })
-        }else {
+        } else {
             this.missCount();
         }
+
         this.isGameOver();
 
     }

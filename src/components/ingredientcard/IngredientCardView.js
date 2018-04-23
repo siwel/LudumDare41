@@ -52,7 +52,7 @@ export default class IngredientCardView {
 
     drawIngredients() {
 
-        for (let i = 0; i < this.ingredients.length-1; i++) {
+        for (let i = 0; i < this.ingredients.length; i++) {
 
             let ingredient = new Ingredient(this.ingredients[i], 30, 30);
             ingredient.x = (i) * 30 - 75;
