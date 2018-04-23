@@ -54,13 +54,15 @@ export default class Game {
         this.hitCountDelay = false;
 
 
-        this.avaliableIngredients = Recipes.ingredients.length;
+        this.availableIngredients();
     }
 
     init() {
         const loader = PIXI.loader;
         loader.add('assets/characters/test.json');
         loader.add('assets/characters/chef/walk/animation.json');
+        loader.add('assets/customer_sprite_happy/animation.json');
+        loader.add('assets/customer_sprite_idle/animation.json');
 
 
         //PRELOAD THE ingredients SO THEY DON'T POP IN ON THE BELT
@@ -110,10 +112,7 @@ export default class Game {
 
         // Listen for animate update
         this.app.ticker.add(delta => {
-            if (RestaurantManager.getInstance().hasJustFinishedTable) {
-                this.healthBar.addHealth();
-                RestaurantManager.getInstance().hasJustFinishedTable = false;
-            }
+            this.tickHealth();
         });
     }
 
@@ -216,6 +215,11 @@ export default class Game {
             this.gun.fire(this.gun.sprite.y)
         })
 
+        //For touch too
+        window.addEventListener('touchend', ()=>{
+            this.gun.fire(this.gun.sprite.y)
+        })
+
     }
 
     simpleBulletHitCheck() {
@@ -305,7 +309,8 @@ export default class Game {
             this.bgsound.stop();
         }
 
-        // TODO: Stop game playing
+        this.belt.kill();
+        this.topBar.ticker.destroy();
 
         const data = RestaurantManager.getInstance().generateReview();
 
@@ -355,11 +360,23 @@ export default class Game {
     }
 
     getNextIngredient(width, height) {
-        if(this.avaliableIngredients == 0){
-            this.avaliableIngredients = Recipes.ingredients.length;
+        if(this.ingredient.length === 0 ){
+            this.availableIngredients();
         }
-        const ingredientType = Recipes.ingredients[Math.floor(Math.random() * this.avaliableIngredients--)];
+        let index =  Math.floor(Math.random() * this.ingredient.length)
+        const ingredientType = this.ingredient.splice(index,1);
         return new Ingredient(ingredientType, width, height);
+    }
+
+    tickHealth() {
+        if (RestaurantManager.getInstance().hasJustFinishedTable) {
+            this.healthBar.addHealth();
+            RestaurantManager.getInstance().hasJustFinishedTable = false;
+        }
+    }
+
+    availableIngredients (){
+        this.ingredient = Array.from(Recipes.ingredients)
     }
 
 
