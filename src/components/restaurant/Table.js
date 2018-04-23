@@ -88,6 +88,7 @@ export default class Table {
     }
 
     addIngredient(ingredient){
+        ingredient = ingredient[0];
 
         if(this.ingredients.includes(ingredient)){
             console.log(`WRONG INGREDIENT: WE ALREADY HAVE ${ingredient}`);
