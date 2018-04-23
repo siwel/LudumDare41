@@ -31,7 +31,7 @@ export default class Game {
         this.ingredientsOnBelt = [];
 
         this.bgsound = new Howl({
-            src: ['assets/sounds/main_game_music.flac'],
+            src: ['assets/sounds/main_game_music.mp3'],
             loop: true,
             volume: 0.3,
         });
@@ -39,11 +39,11 @@ export default class Game {
         this.bgsound.play();
 
         this.hitSound = new Howl({
-            src: ['assets/sounds/hit_pstve.flac']
+            src: ['assets/sounds/hit_pstve.mp3']
         });
 
         this.loseSound = new Howl({
-            src: ['assets/sounds/losing_theme.flac']
+            src: ['assets/sounds/losing_theme.mp3']
         });
 
 
