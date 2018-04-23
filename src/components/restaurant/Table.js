@@ -92,7 +92,7 @@ export default class Table {
 
         if(this.ingredients.includes(ingredient)){
             console.log(`WRONG INGREDIENT: WE ALREADY HAVE ${ingredient}`);
-            this._onBadIngredient(ingredient);
+            // this._onBadIngredient(ingredient);
             return false;
         }
 
