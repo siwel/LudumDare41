@@ -1,7 +1,7 @@
 # LudumDare41 - Hangover Kitchen
 
 
-![hangover kitchen.png](./hangover kitchen.png)
+![hangover kitchen.png](./hangoverkitchen.png)
 
 Shooting meets Cooking in Hangover Kitchen. Improve your kitchen's Goggle review by shooting ingredients to the correct customer, completing recipes before they empty your beer stock. Keep your chef’s beer topped up by waking up (kicking out) the hungover customers with exotic food. If all of the beer is gone it's **Game Over.**
 
